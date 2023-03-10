@@ -1,29 +1,47 @@
-﻿using HomeAssingment.Models;
+﻿using HomeAssignment.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using System.Data;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Diagnostics;
 
-namespace HomeAssingment.Controllers
+namespace HomeAssignment.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IConfiguration _configuration;
+        public HomeController(IConfiguration configuration)
         {
-            _logger = logger;
+            _configuration = configuration;
         }
-
-        public IActionResult Index()
+        public ActionResult Index()
         {
-            return View();
-        }
+            List<Contact> contacts = new List<Contact>();
+            string connectionString = _configuration.GetConnectionString("DefaultConnection");
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+                using var command = new SqlCommand("SELECT * FROM Contacts", connection);
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var contact = new Contact()
+                    {
+                        Id = reader.GetInt32(0),
+                        FirstName = reader.GetString(1),
+                        LastName = reader.GetString(2)
+                    };
+
+                    contacts.Add(contact);
+                }
+            }
+
+            return View(contacts);
+        }
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

@@ -1,8 +1,32 @@
-﻿@{
+﻿@model List<HomeAssignment.Models.Contact>;
+
+@{
     ViewData["Title"] = "Home Page";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h3>Contacts Page</h3>
+<table border="1" class="table table-bordered table-responsive">
+    <thead>
+        <tr class="btn-primary">
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Birth Date</th>
+            <th>City</th>
+            <th>House number</th>
+            <th>Phone at Home</th>
+            <th>Phone</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var contact in Model)
+            {
+                <tr>
+                    <td>@contact.Id</td>
+                    <td>@contact.FirstName</td>
+                    <td>@contact.LastName</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>  
