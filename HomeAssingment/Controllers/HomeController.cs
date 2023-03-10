@@ -53,6 +53,12 @@ namespace HomeAssignment.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        [Route("ContactDetails/{customerId}")]
+        public void RouteToContactDetails(int id)
+        {
+
+        }
+
         //private string SetTableColumnInt(SqlDataReader ? reader, int column)
         //{
         //    if (reader.GetInt32(column) is null)

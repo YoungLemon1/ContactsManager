@@ -1,9 +1,15 @@
 ﻿@model List<HomeAssignment.Models.Contact>;
 
+<script>
+    function RouteToContactDetails(id) {
+        // Redirect to the contact details page using the contact ID
+        window.location.href = "/ContactDetails/Index/" + id;
+    }
+</script>
 <h3>Contacts Page</h3>
 <table border="1" class="table table-bordered table-responsive">
     <thead>
-        <tr class="btn-primary">
+        <tr class="table-primary">
             <th>ID</th>
             <th>First Name</th>
             <th>Last Name</th>
@@ -15,23 +21,15 @@
             <th>Phone</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="contacts-body">
         @{
             foreach (var contact in Model)
             {
-                var bd = contact.BirthDate == DateTime.MinValue ? "" : contact.BirthDate.ToString("D");
-
-                            <tr>
-                                <td>@contact.Id</td>
-                                <td>@contact.FirstName</td>
-                                <td>@contact.LastName</td>
-                                <td>@bd</td>
-                                <td>@contact.City</td>
-                                <td>@contact.Street</td>
-                                <td>@contact.HouseNumber</td>
-                                <td>@contact.PhoneAtHome</td>
-                                <td>@contact.Phone</td>
-                            </tr>
+                <tr onclick="RouteToContactDetails(@contact.Id)">
+                        <td>@contact.Id</td>
+                        <td>@contact.FirstName</td>
+                        <td>@contact.LastName</td>
+                    </tr>
             }
         }
     </tbody>

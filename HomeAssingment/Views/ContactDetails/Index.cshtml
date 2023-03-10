@@ -1,0 +1,19 @@
+﻿@model HomeAssignment.Models.Contact
+
+<div>
+    <h2>@Model.FirstName @Model.LastName</h2>
+    @{
+        var bd = Model.BirthDate == DateTime.MinValue ? "" : Model.BirthDate.ToString("D");
+    }
+    <div>
+        <p>Id: @Model.Id</p>
+        <p>First name: @Model.FirstName</p>
+        <p>Last name: @Model.LastName</p>
+        <p>Birth date: @bd</p>
+        <p>City: @Model.City</p>
+        <p>Street: @Model.Street</p>
+        <p>House number @Model.HouseNumber</p>
+        <p>Phone at home: @Model.PhoneAtHome</p>
+        <p>Phone: @Model.Phone</p>
+    </div>
+</div>
