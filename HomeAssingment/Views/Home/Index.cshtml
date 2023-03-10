@@ -1,8 +1,5 @@
 ﻿@model List<HomeAssignment.Models.Contact>;
 
-@{
-    ViewData["Title"] = "Home Page";
-}
 <h3>Contacts Page</h3>
 <table border="1" class="table table-bordered table-responsive">
     <thead>
@@ -12,6 +9,7 @@
             <th>Last Name</th>
             <th>Birth Date</th>
             <th>City</th>
+            <th>Street</th>
             <th>House number</th>
             <th>Phone at Home</th>
             <th>Phone</th>
@@ -21,11 +19,19 @@
         @{
             foreach (var contact in Model)
             {
-                <tr>
-                    <td>@contact.Id</td>
-                    <td>@contact.FirstName</td>
-                    <td>@contact.LastName</td>
-                </tr>
+                var bd = contact.BirthDate == DateTime.MinValue ? "" : contact.BirthDate.ToString("D");
+
+                            <tr>
+                                <td>@contact.Id</td>
+                                <td>@contact.FirstName</td>
+                                <td>@contact.LastName</td>
+                                <td>@bd</td>
+                                <td>@contact.City</td>
+                                <td>@contact.Street</td>
+                                <td>@contact.HouseNumber</td>
+                                <td>@contact.PhoneAtHome</td>
+                                <td>@contact.Phone</td>
+                            </tr>
             }
         }
     </tbody>
