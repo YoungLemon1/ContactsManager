@@ -27,17 +27,9 @@ td,td {
     background-color: aliceblue;
 }
 
-#new-contact-btn {
-    font-size:large;
-}
-
 #edit-contact-btn {
     background-color: orange;
-    min-width: 50px;
-    border: none;
-    min-height: 50px;
     color:white;
-    font-size: large;
 }
 
 #edit-contact-fields input{

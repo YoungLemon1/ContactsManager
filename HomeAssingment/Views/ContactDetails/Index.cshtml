@@ -10,12 +10,14 @@
 			const contactFields = document.querySelectorAll("input")
 			contactFields.forEach((field) => {
 				if (editing) {
-					field.removeAttribute("readonly");
+					saveBtn.setAttribute("hidden", "hidden")
+					field.setAttribute("readonly", "true");
 					field.setAttribute("border", "none")
 					field.setAttribute("background-color", "white")
 				}
 				else {
-					field.setAttribute("readonly", "true");
+					saveBtn.removeAttribute("hidden");
+					field.removeAttribute("readonly");		
 					field.setAttribute("border", "auto")
 					field.setAttribute("background-color", "lightgoldenrodyellow")
 				}
@@ -24,10 +26,10 @@
 		}
 	</script>
 	<h2>@Model.FirstName @Model.LastName</h2>
-	<form id="edit-contact-fields">
+	<div id="edit-contact-fields">
 		<div>
 			<label for="id">Id</label>
-			<input id="id" name="id" type="number" value="@Model.Id" readonly />
+			<input id="id" name="id" type="number" value="@Model.Id" readonly/>
 		</div>
 		<div>
 			<label for="first-name">First Name</label>
@@ -62,6 +64,6 @@
 			<input id="phone" type="text" value="@Model.Phone" readonly />
 		</div>
 		<button id="edit-contact-btn" class="btn btn-warning" onclick="ToggleEditingMode()">Edit ✏</button>
-		<button id="save-btn" type="submit" class="btn btn-success">Save</button>
-	</form>
+		<button id="save-btn" type="submit" class="btn btn-success" hidden>Save</button>
+	</div>
 </div>
