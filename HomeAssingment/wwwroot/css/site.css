@@ -17,6 +17,11 @@ body {
   margin-bottom: 60px;
 }
 
+td,td {
+    min-width: 70px;
+    max-width: max-content;
+}
+
 .contacts-body tr:hover {
     cursor: pointer;
     background-color: aliceblue;

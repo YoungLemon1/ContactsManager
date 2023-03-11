@@ -10,25 +10,20 @@
 <table border="1" class="table table-bordered table-responsive">
     <thead>
         <tr class="table-primary">
+            <th></th>
             <th>ID</th>
             <th>First Name</th>
             <th>Last Name</th>
-            <th>Birth Date</th>
-            <th>City</th>
-            <th>Street</th>
-            <th>House number</th>
-            <th>Phone at Home</th>
-            <th>Phone</th>
         </tr>
     </thead>
     <tbody class="contacts-body">
         @{
             foreach (var contact in Model)
             {
-                <tr onclick="RouteToContactDetails(@contact.Id)">
-                        <td>@contact.Id</td>
-                        <td>@contact.FirstName</td>
-                        <td>@contact.LastName</td>
+                    <tr id="contact+@contact.Id" onclick="RouteToContactDetails(@contact.Id)">
+                            <td>@contact.Id</td>
+                            <td>@contact.FirstName</td>
+                            <td>@contact.LastName</td>
                     </tr>
             }
         }
