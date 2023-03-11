@@ -1,37 +1,43 @@
 ﻿@model HomeAssignment.Models.Contact
-
 <div>
-    <h2>@Model.FirstName @Model.LastName</h2>
-    @{
-        var bd = Model.BirthDate == DateTime.MinValue ? "" : Model.BirthDate.ToString("D");
-    }
-    @if(!ViewBag.Editing)
-    {
-                <div>
-                    <p>Id: @Model.Id</p>
-                    <p>First name: @Model.FirstName</p>
-                    <p>Last name: @Model.LastName</p>
-                    <p>Birth date: @bd</p>
-                    <p>City: @Model.City</p>
-                    <p>Street: @Model.Street</p>
-                    <p>House number: @Model.HouseNumber</p>
-                    <p>Phone at home: @Model.PhoneAtHome</p>
-                    <p>Phone: @Model.Phone</p>
-                </div>
-    }   
-    else
-    {
-        <div>
-            <input type="number" value="@Model.Id"/>
-            <input type="text" value="@Model.FirstName" />
-            <input type="text" value="@Model.LastName"/>
-            <input type="date" value="@Model.LastName" />
-            <p>City: @Model.City</p>
-            <p>Street: @Model.Street</p>
-            <p>House number: @Model.HouseNumber</p>
-            <p>Phone at home: @Model.PhoneAtHome</p>
-            <p>Phone: @Model.Phone</p>
-        </div>
-    }
-    <button id="edit-contact-btn" class="btn btn-warning" asp-action="SetEditMode">Edit ✏</button>
+	@{
+		var bd = Model.BirthDate == DateTime.MinValue ? "" : Model.BirthDate.ToString("D");
+	}
+	<script>
+		var editing = false
+		function ToggleEditingMode() {
+			const contactFields = document.querySelectorAll("input")
+			contactFields.forEach((field) => {
+				if (editing)
+				{
+					field.removeAttribute("readonly");
+					field.setAttribute("border", "none")
+					field.setAttribute("background-color", "white")
+				}
+				else
+				{
+					field.setAttribute("readonly", "true");
+					field.setAttribute("border", "auto")
+					field.setAttribute("background-color", "lightgoldenrodyellow")
+				}
+			})
+			editing = !editing;
+		}
+	</script>
+	<h2>@Model.FirstName @Model.LastName</h2>
+	<div id="edit-contact-fields">
+		<label for="id">Id</label>
+		<input id="id" name="id" type="number" value="@Model.Id" readonly />
+		<label for="FirstName">First Name</label>
+		<input id="FirstName" type="text" value="@Model.FirstName" readonly />
+		<input type="text" value="@Model.LastName" readonly />
+		<input type="date" value="@Model.BirthDate" readonly />
+		<input type="text" value="@Model.City" readonly />
+		<input type="text" value="@Model.Street" readonly />
+		<input type="text" value="@Model.HouseNumber" readonly />
+		<input type="text" value="@Model.PhoneAtHome" readonly />
+		<input type="text" value="@Model.Phone" readonly />
+	</div>
+
+	<button id="edit-contact-btn" class="btn btn-warning" onclick="ToggleEditingMode()">Edit ✏</button>
 </div>

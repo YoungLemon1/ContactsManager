@@ -39,3 +39,8 @@ td,td {
     color:white;
     font-size: large;
 }
+
+#edit-contact-fields input{
+    display:list-item;
+    margin-bottom:8px;
+}
