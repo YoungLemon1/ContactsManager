@@ -17,7 +17,7 @@ namespace HomeAssignment.Controllers
 			return View();
 		}
 
-		public IActionResult SubmitEntry(Contact contact)
+		public IActionResult CreateContact(Contact contact)
 		{
 			_repository.InsertContact(contact);
 			return RedirectToAction("Index");

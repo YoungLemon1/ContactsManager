@@ -1,40 +1,42 @@
-﻿<h2>New Contact</h2>
-<form id="new-contact-form">
+﻿@model HomeAssignment.Models.Contact
+
+<h2>New Contact</h2>
+<form asp-action="" id="new-contact-form">
 	<div>
 		<label for="id">Id</label>
-		<input id="id" name="id" type="number" />
+		<input id="id" name="id" type="number" asp-for=Id />
 	</div>
 	<div>
 		<label for="first-name">First Name</label>
-		<input id="first-name" type="text" />
+		<input id="first-name" type="text" asp-for=FirstName />
 	</div>
 	<div>
 		<label for="last-name">Last Name</label>
-		<input id="last-name" type="text" />
+		<input id="last-name" type="text" asp-for=LastName />
 	</div>
 	<div>
 		<label for="birth-date">Birth Date</label>
-		<input id="birth-date" type="date" />
+		<input id="birth-date" type="date" asp-for=BirthDate />
 	</div>
 	<div>
 		<label for="city">City</label>
-		<input id="city" type="text" />
+		<input id="city" type="text" asp-for=City />
 	</div>
 	<div>
 		<label for="street">Street</label>
-		<input id="street" type="text" />
+		<input id="street" type="text" asp-for=Street />
 	</div>
 	<div>
 		<label for="house-number">House Number</label>
-		<input id="house-number" type="number" />
+		<input id="house-number" type="number" asp-for=HouseNumber />
 	</div>
 	<div>
 		<label for="phone-at-home">Phone at Home</label>
-		<input id="phone-at-home" type="text" />
+		<input id="phone-at-home" type="text" asp-for=PhoneAtHome />
 	</div>
 	<div>
 		<label for="phone">Phone</label>
-		<input id="phone" type="text" />
+		<input id="phone" type="text" asp-for=Phone />
 	</div>
 </form>
 
