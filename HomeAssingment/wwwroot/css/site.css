@@ -44,3 +44,7 @@ td,td {
     display:list-item;
     margin-bottom:8px;
 }
+
+form div {
+    display: inline-block;
+}

@@ -16,7 +16,7 @@ namespace HomeAssignment.Controllers
         {
             _repository = repository;
         }
-        public ActionResult Index()
+        public IActionResult Index()
         {
             var contacts = _repository.GetContacts().ToList();
             return View(contacts);
@@ -24,6 +24,14 @@ namespace HomeAssignment.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public void DeleteMarked(List<int> ids)
+        {
+            foreach (int id in ids)
+            {
+                _repository.DeleteContact(id);
+            }
         }
 
         //private string SetTableColumnInt(SqlDataReader ? reader, int column)

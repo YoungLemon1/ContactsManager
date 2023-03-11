@@ -18,14 +18,14 @@ namespace HomeAssignment.Controllers
             contact = new Contact();
             editing = false;
         }
-        public ActionResult Index(int id)
+        public IActionResult Index(int id)
         {
             contact = _repository.GetContact(id);
             ViewBag.Editing = editing;
             return View(contact);
         }
 
-        public ActionResult SetEditMode()
+        public IActionResult SetEditMode()
         {
             editing = !editing;
             ViewBag.Editing = editing;
@@ -33,45 +33,9 @@ namespace HomeAssignment.Controllers
         }
 
         // GET: ContactDetails/Edit/5
-        public ActionResult Edit(int id)
+        public IActionResult Edit(int id)
         {
             return View();
-        }
-
-        // POST: ContactDetails/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ContactDetails/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: ContactDetails/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }
