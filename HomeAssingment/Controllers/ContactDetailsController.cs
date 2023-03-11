@@ -11,42 +11,25 @@ namespace HomeAssignment.Controllers
         // GET: ContactDetails
         private readonly IRepository _repository;
         private Contact contact;
+        private bool editing;
         public ContactDetailsController(IRepository repository)
         {
             _repository = repository;
             contact = new Contact();
+            editing = false;
         }
         public ActionResult Index(int id)
         {
             contact = _repository.GetContact(id);
+            ViewBag.Editing = editing;
             return View(contact);
         }
 
-        // GET: ContactDetails/Details/5
-        public ActionResult Details(int id)
+        public ActionResult SetEditMode()
         {
-            return View();
-        }
-
-        // GET: ContactDetails/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: ContactDetails/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            editing = !editing;
+            ViewBag.Editing = editing;
+            return View(contact);
         }
 
         // GET: ContactDetails/Edit/5

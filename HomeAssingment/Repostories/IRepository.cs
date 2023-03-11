@@ -6,5 +6,8 @@ namespace HomeAssignment.Repostories
     {
         IEnumerable<Contact> GetContacts();
         Contact GetContact(int id);
+        void InsertContact(Contact contact);
+        void UpdateContact(Contact contact);
+        void DeleteContact(int id);
     }
 }
