@@ -1,4 +1,5 @@
 ﻿using HomeAssignment.Models;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace HomeAssignment.Repostories
@@ -15,33 +16,35 @@ namespace HomeAssignment.Repostories
         }
         IEnumerable<Contact> IRepository.GetContacts()
         {
-            IEnumerable<Contact> contacts = new List<Contact>();
-            sqlCon.Open();
-
-            using var command = new SqlCommand("SELECT * FROM Contacts", sqlCon);
-            var reader = command.ExecuteReader();
-
-            while (reader.Read())
+            using (var connection = new SqlConnection(connectionString))
             {
-                var contact = new Contact();
-                AssignContactFromDb(reader, contact);
-                yield return contact;
-            }
+                connection.Open();
 
-            sqlCon.Close();
+                using var command = new SqlCommand("SELECT * FROM Contacts", connection);
+                using var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var contact = new Contact();
+                    AssignContactFromDb(reader, contact);
+                    yield return contact;
+                }
+            }
         }
+        
 
         Contact IRepository.GetContact(int id)
         {
-            sqlCon.Open();
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
 
-            using var command = new SqlCommand($"SELECT * FROM Contacts WHERE Id = {id}", sqlCon);
-            var reader = command.ExecuteReader();
-            var contact = new Contact();
-            ExecuteDataReaderCommand(reader, contact);
-            sqlCon.Close();
-            return contact;
-
+                using var command = new SqlCommand($"SELECT * FROM Contacts WHERE Id = {id}", connection);
+                var reader = command.ExecuteReader();
+                var contact = new Contact();
+                ExecuteDataReaderCommand(reader, contact);
+                return contact;
+            }
         }
 
         private static void ExecuteDataReaderCommand(SqlDataReader reader, Contact contact)
@@ -54,28 +57,60 @@ namespace HomeAssignment.Repostories
 
         public void InsertContact(Contact contact)
         {
-            sqlCon.Open();
-            using var command = new SqlCommand("INSERT INTO Contacts (Id, FirstName, LastName, BirthDate, City, Street, HouseNumber, Phone, PhoneAtHome)" +
-                $"VALUES ({contact.Id}, {contact.FirstName}, {contact.LastName}, {contact.BirthDate}, {contact.BirthDate}, {contact.Street}, {contact.HouseNumber}, {contact.PhoneAtHome}, {contact.Phone})");
-            sqlCon.Close();
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using var command = new SqlCommand(
+                    "INSERT INTO Contacts (Id, FirstName, LastName, BirthDate, City, Street, HouseNumber, PhoneAtHome, Phone) " +
+                    "VALUES (@Id, @FirstName, @LastName, @BirthDate, @City, @Street, @HouseNumber, @PhoneAtHome, @Phone)",
+                    connection);
+
+                command.Parameters.Add("@Id", SqlDbType.Int).Value = contact.Id;
+                command.Parameters.Add("@FirstName", SqlDbType.NVarChar, 30).Value = contact.FirstName;
+                command.Parameters.Add("@LastName", SqlDbType.NVarChar, 30).Value = contact.LastName;
+                command.Parameters.Add("@BirthDate", SqlDbType.DateTime).Value = contact.BirthDate;
+                command.Parameters.Add("@City", SqlDbType.NVarChar, 20).Value = contact.City;
+                command.Parameters.Add("@Street", SqlDbType.NVarChar, 20).Value = contact.Street;
+                command.Parameters.Add("@HouseNumber", SqlDbType.Int).Value = contact.HouseNumber;
+                command.Parameters.Add("@PhoneAtHome", SqlDbType.NVarChar, 20).Value = contact.PhoneAtHome;
+                command.Parameters.Add("@Phone", SqlDbType.NVarChar, 20).Value = contact.Phone;
+
+                int rowsAffected = command.ExecuteNonQuery();
+            }
         }
 
         public void UpdateContact(Contact contact)
         {
-            sqlCon.Open();
-            using var command = new SqlCommand($"UPDATE Contacts " +
-                $"SET (id = {contact.Id}, FirstName = {contact.FirstName}, LastName = ${contact.LastName}, BirthDate = {contact.BirthDate}, City = {contact.BirthDate}, Street = {contact.Street}, HouseNumber = {contact.HouseNumber}, PhoneAtHome = {contact.PhoneAtHome}, Phone = {contact.Phone}" +
-                $" Contacts WHERE Id = {contact.Id}", sqlCon);
-            var reader = command.ExecuteReader();
-            sqlCon.Close();
+            using (var connection = new SqlConnection(connectionString))
+            {
+                using (var command = new SqlCommand("UPDATE Contacts SET Id = @Id, FirstName = @FirstName, LastName = @LastName, BirthDate = @BirthDate, City = @City, Street = @Street, HouseNumber = @HouseNumber, PhoneAtHome = @PhoneAtHome, Phone = @Phone WHERE Id = @Id", connection))
+                {
+                    command.Parameters.AddWithValue("@Id", contact.Id);
+                    command.Parameters.AddWithValue("@FirstName", contact.FirstName);
+                    command.Parameters.AddWithValue("@LastName", contact.LastName);
+                    command.Parameters.AddWithValue("@BirthDate", contact.BirthDate);
+                    command.Parameters.AddWithValue("@City", contact.City ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@Street", contact.Street ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@HouseNumber", contact.HouseNumber.HasValue ? contact.HouseNumber.Value : (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@PhoneAtHome", contact.PhoneAtHome ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@Phone", contact.Phone ?? (object)DBNull.Value);
+
+                    connection.Open();
+                    int rowsAffected = command.ExecuteNonQuery();
+                }
+            }
         }
+
 
         public void DeleteContact(int id)
         {
-            sqlCon.Open();
-            using var command = new SqlCommand($"DELETE * FROM Contacts WHERE Id = {id}", sqlCon);
-            var reader = command.ExecuteReader();
-            sqlCon.Close();
+            using (var connection = new SqlConnection(connectionString))
+            {
+                using var command = new SqlCommand($"DELETE * FROM Contacts WHERE Id = {id}", connection);
+                connection.Open();
+                int rowsAffected = command.ExecuteNonQuery();
+            }
         }
 
         private static void AssignContactFromDb(SqlDataReader dataReader, Contact contact)

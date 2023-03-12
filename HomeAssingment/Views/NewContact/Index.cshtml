@@ -1,7 +1,7 @@
 ﻿@model HomeAssignment.Models.Contact
 
 <h2>New Contact</h2>
-<form asp-action="" id="new-contact-form">
+<form asp-action="CreateContact" class="form-control" id="new-contact-form">
 	<div>
 		<label for="id">Id</label>
 		<input id="id" name="id" type="number" asp-for=Id />
@@ -38,6 +38,5 @@
 		<label for="phone">Phone</label>
 		<input id="phone" type="text" asp-for=Phone />
 	</div>
+	<button class="btn btn-success" type="submit">Save contact</button>
 </form>
-
-<button class="btn btn-success">Create contact</button>

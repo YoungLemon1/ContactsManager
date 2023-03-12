@@ -19,11 +19,11 @@
         @{
             foreach (var contact in Model)
             {
-                    <tr id="contact+@contact.Id" onclick="RouteToContactDetails(@contact.Id)">
-                        <td>@contact.Id</td>
-                        <td>@contact.FirstName</td>
-                        <td>@contact.LastName</td>
-                    </tr>
+                <tr id="contact+@contact.Id" onclick="RouteToContactDetails(@contact.Id)">
+                    <td>@contact.Id</td>
+                    <td>@contact.FirstName</td>
+                    <td>@contact.LastName</td>
+                </tr>
             }
         }
     </tbody>

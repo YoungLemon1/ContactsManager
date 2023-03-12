@@ -21,21 +21,14 @@ namespace HomeAssignment.Controllers
         public IActionResult Index(int id)
         {
             contact = _repository.GetContact(id);
-            ViewBag.Editing = editing;
-            return View(contact);
-        }
-
-        public IActionResult SetEditMode()
-        {
-            editing = !editing;
-            ViewBag.Editing = editing;
             return View(contact);
         }
 
         // GET: ContactDetails/Edit/5
-        public IActionResult Edit(int id)
+        public IActionResult SaveEdit(Contact contact)
         {
-            return View();
+            _repository.UpdateContact(contact);
+            return RedirectToAction("Index", contact);
         }
     }
 }

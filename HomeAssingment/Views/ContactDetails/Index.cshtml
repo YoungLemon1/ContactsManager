@@ -1,39 +1,43 @@
 ﻿@model HomeAssignment.Models.Contact
+
 <div>
 	@{
 		var bd = Model.BirthDate == DateTime.MinValue ? "" : Model.BirthDate.ToString("D");
 	}
 	<script>
-		var editing = false
+		var editing = false;
+
 		function ToggleEditingMode() {
-			const saveBtn = document.getElementById("save-btn")
+			editing = !editing;
 			const contactFields = document.querySelectorAll("input")
+			const exampleInput = contactFields[0];
+			const saveBtn = document.getElementById("save-btn");
 			contactFields.forEach((field) => {
 				if (editing) {
-					saveBtn.setAttribute("hidden", "hidden")
+					saveBtn.setAttribute("hidden", "hidden");
 					field.setAttribute("readonly", "true");
-					field.setAttribute("border", "none")
-					field.setAttribute("background-color", "white")
+					field.style.border = "none";
+					field.style.backgroundColor = "white";
 				}
 				else {
 					saveBtn.removeAttribute("hidden");
 					field.removeAttribute("readonly");		
-					field.setAttribute("border", "auto")
-					field.setAttribute("background-color", "lightgoldenrodyellow")
+					field.style.border = "1px solid black";
+					field.style.borderRadius = "2%";
+					field.style.backgroundColor = "lightgoldenrodyellow";
 				}
 			})
-			editing = !editing;
 		}
 	</script>
 	<h2>@Model.FirstName @Model.LastName</h2>
-	<div id="edit-contact-fields">
+	<form asp-action="SaveEdit" class="form-control" id="edit-contact-form">
 		<div>
 			<label for="id">Id</label>
-			<input id="id" name="id" type="number" value="@Model.Id" asp-for=Id readonly />
+			<input id="id" name="id" type="number" asp-for=Id readonly />
 		</div>
 		<div>
 			<label for="first-name">First Name</label>
-			<input id="first-name" type="text" value="@Model.FirstName" asp-for=FirstName readonly/>
+			<input id="first-name" type="text" asp-for=FirstName readonly/>
 		</div>
 		<div>
 			<label for="last-name">Last Name</label>
@@ -41,7 +45,7 @@
 		</div>
 		<div>
 			<label for="birth-date">Birth Date</label>
-			<input id="birth-date" type="date" value="@Model.BirthDate" asp-for=BirthDate readonly />
+			<input id="birth-date" type="date" asp-for="BirthDate" readonly />
 		</div>
 		<div>
 			<label for="city">City</label>
@@ -67,7 +71,7 @@
 			<input id="phone" type="text" value="@Model.Phone" asp-for=Phone
 			readonly />
 		</div>
-		<button id="edit-contact-btn" class="btn btn-warning" onclick="ToggleEditingMode()">Edit ✏</button>
 		<button id="save-btn" type="submit" class="btn btn-success" hidden>Save</button>
-	</div>
+	</form>
+	<button id="edit-contact-btn" class="btn btn-warning" onclick="ToggleEditingMode()">Edit ✏</button>
 </div>
