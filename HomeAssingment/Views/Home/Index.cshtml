@@ -33,8 +33,13 @@
     $(document).ready(function () {
         // Enable/disable delete button
         $('.contacts-body input[type="checkbox"]').change(function () {
-            var isChecked = $('.contacts-body input[type="checkbox"]:checked').length > 0;
-            $('#delete-btn').prop('disabled', !isChecked);
+            var isSomeChecked = $('.contacts-body input[type="checkbox"]:checked').length > 0;
+            $('#delete-btn').prop('disabled', !isSomeChecked);
+            var isNotChecked = !$(this).is(':checked');
+            var isMasterChecked = $('#master-checkbox').is(':checked');
+            if (isMasterChecked && isNotChecked) {
+                $('#master-checkbox').prop('checked', false);
+            }
         });
     });
 
@@ -60,12 +65,12 @@
         @{
             foreach (var contact in Model)
             {
-                        <tr id="@contact.Id">
-                            <td class="checkbox-cell"><input type="checkbox" /></td>
-                            <td>@contact.Id</td>
-                            <td>@contact.FirstName</td>
-                            <td>@contact.LastName</td>
-                        </tr>
+                                    <tr id="@contact.Id">
+                                        <td class="checkbox-cell"><input type="checkbox" /></td>
+                                        <td>@contact.Id</td>
+                                        <td>@contact.FirstName</td>
+                                        <td>@contact.LastName</td>
+                                    </tr>
             }
         }
     </tbody>

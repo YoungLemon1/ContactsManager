@@ -17,7 +17,7 @@ body {
     min-width: max-content;
 }
 .contacts-body tr:hover td:not(.checkbox-cell) {
-    background-color: aliceblue;
+    background-color: aliceblue !important;
     cursor: pointer;
 }
 
