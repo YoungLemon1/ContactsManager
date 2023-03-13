@@ -7,6 +7,10 @@
     window.location.href = "/ContactDetails/Index/" + id;
     }
 
+    function ResetAllCheckboxes() {
+        $('input[type="checkbox"]').prop('checked', false);
+    }
+
     $(document).ready(function () {
         $('.contacts-body td:not(.checkbox-cell)').click(function () {
             var id = $(this).parent().attr('id');
@@ -43,6 +47,36 @@
         });
     });
 
+    $('#delete-btn').click(function () {
+        var markedRows = $('.contacts-body input[type="checkbox"]:checked').closest('tr');
+        var numEntries = markedRows.length;
+        if (numEntries > 0) {
+            var message = 'Are you sure you want to delete ' + numEntries + ' entry(s)?';
+            if (confirm(message)) {
+                var ids = [];
+                markedRows.each(function () {
+                    ids.push(parseInt($(this).attr('id')));
+                });
+                $.ajax({
+                    url: '/DeleteMarked',
+                    type: 'POST',
+                    data: JSON.stringify(ids),
+                    contentType: 'application/json',
+                    success: function () {
+                        window.location.reload();
+                    },
+                    error: function () {
+                        alert('Error deleting contacts.');
+                    }
+                });
+            }
+        } else {
+            alert('Please select at least one entry to delete.');
+        }
+        ResetAllCheckboxes();
+    });
+
+
     $(document).ready(function () {
         // change background color of .checkbox-cell elements
         $('.checkbox-cell').css({
@@ -52,7 +86,7 @@
 
     $(document).ready(function () {
         $('.route-changer, td:not(.checkbox-cell)').click(function () {
-        $('input[type="checkbox"]').prop('checked', false);
+        ResetAllCheckboxes();
         });
     });
 </script>
@@ -71,12 +105,12 @@
         @{
             foreach (var contact in Model)
             {
-                        <tr id="@contact.Id">
-                        <td class="checkbox-cell"><input type="checkbox" /></td>
-                        <td>@contact.Id</td>
-                        <td>@contact.FirstName</td>
-                        <td>@contact.LastName</td>
-                        </tr>
+                                <tr id="@contact.Id">
+                                <td class="checkbox-cell"><input type="checkbox" /></td>
+                                <td>@contact.Id</td>
+                                <td>@contact.FirstName</td>
+                                <td>@contact.LastName</td>
+                                </tr>
             }
         }
     </tbody>
@@ -84,4 +118,4 @@
 
 
 <a id="new-contact-btn" class="btn btn-primary route-changer" asp-controller="NewContact" asp-action="Index">+ New Contact</a>
-<button id="delete-btn" class="btn btn-danger route-changer" onclick="" disabled>Delete <i class="fa-solid fa-trash-can"></i></button>
+<button id="delete-btn" class="btn btn-danger" disabled>Delete <i class="fa-solid fa-trash-can"></i></button>
