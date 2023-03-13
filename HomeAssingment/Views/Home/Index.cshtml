@@ -49,6 +49,12 @@
             'background-color': 'initial'
         });
     });
+
+    $(document).ready(function () {
+        $('.route-changer, td:not(.checkbox-cell)').click(function () {
+        $('input[type="checkbox"]').prop('checked', false);
+        });
+    });
 </script>
 
 <h3>Contacts Page</h3>
@@ -65,17 +71,17 @@
         @{
             foreach (var contact in Model)
             {
-                                    <tr id="@contact.Id">
-                                        <td class="checkbox-cell"><input type="checkbox" /></td>
-                                        <td>@contact.Id</td>
-                                        <td>@contact.FirstName</td>
-                                        <td>@contact.LastName</td>
-                                    </tr>
+                        <tr id="@contact.Id">
+                        <td class="checkbox-cell"><input type="checkbox" /></td>
+                        <td>@contact.Id</td>
+                        <td>@contact.FirstName</td>
+                        <td>@contact.LastName</td>
+                        </tr>
             }
         }
     </tbody>
 </table>
 
 
-<a id="new-contact-btn" class="btn btn-primary" asp-controller="NewContact" asp-action="Index">+ New Contact</a>
-<button id="delete-btn" class="btn btn-danger" onclick="" disabled>Delete <i class="fa-solid fa-trash-can"></i></button>
+<a id="new-contact-btn" class="btn btn-primary route-changer" asp-controller="NewContact" asp-action="Index">+ New Contact</a>
+<button id="delete-btn" class="btn btn-danger route-changer" onclick="" disabled>Delete <i class="fa-solid fa-trash-can"></i></button>
