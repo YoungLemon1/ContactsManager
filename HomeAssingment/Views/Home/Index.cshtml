@@ -1,15 +1,56 @@
 ﻿@model List<HomeAssignment.Models.Contact>;
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+
     function RouteToContactDetails(id) {
-        // Redirect to the contact details page using the contact ID
-        window.location.href = "/ContactDetails/Index/" + id;
+    window.location.href = "/ContactDetails/Index/" + id;
     }
+
+    $(document).ready(function () {
+        $('.contacts-body td:not(.checkbox-cell)').click(function () {
+            var id = $(this).parent().attr('id');
+            RouteToContactDetails(id);
+        });
+    });
+
+    $(document).ready(function () {
+        $('.contacts-body td.checkbox-cell input[type="checkbox"]').change(function () {
+            var checked = $(this).prop('checked');
+            $(this).closest('tr').find('td:not(.checkbox-cell)').css('background-color', checked ? 'lightsteelblue' : 'initial');
+        });
+    });
+
+
+    $(document).ready(function () {
+        // Synchronize checkbox state
+        $('#master-checkbox').change(function () {
+            var isChecked = $(this).is(':checked');
+            $('.contacts-body input[type="checkbox"]').prop('checked', isChecked).trigger('change');
+        });
+    });
+
+    $(document).ready(function () {
+        // Enable/disable delete button
+        $('.contacts-body input[type="checkbox"]').change(function () {
+            var isChecked = $('.contacts-body input[type="checkbox"]:checked').length > 0;
+            $('#delete-btn').prop('disabled', !isChecked);
+        });
+    });
+
+    $(document).ready(function () {
+        // change background color of .checkbox-cell elements
+        $('.checkbox-cell').css({
+            'background-color': 'initial'
+        });
+    });
 </script>
+
 <h3>Contacts Page</h3>
 <table border="1" class="table table-bordered table-responsive">
     <thead>
         <tr class="table-primary">
+            <th class="checkbox-cell"><input id="master-checkbox" type="checkbox" /></th>
             <th>ID</th>
             <th>First Name</th>
             <th>Last Name</th>
@@ -19,15 +60,17 @@
         @{
             foreach (var contact in Model)
             {
-                <tr id="contact+@contact.Id" onclick="RouteToContactDetails(@contact.Id)">
-                    <td>@contact.Id</td>
-                    <td>@contact.FirstName</td>
-                    <td>@contact.LastName</td>
-                </tr>
+                        <tr id="@contact.Id">
+                            <td class="checkbox-cell"><input type="checkbox" /></td>
+                            <td>@contact.Id</td>
+                            <td>@contact.FirstName</td>
+                            <td>@contact.LastName</td>
+                        </tr>
             }
         }
     </tbody>
 </table>
 
+
 <a id="new-contact-btn" class="btn btn-primary" asp-controller="NewContact" asp-action="Index">+ New Contact</a>
-<button class="btn btn-danger" onclick="" disabled>Delete <i class="fa-solid fa-trash-can"></i></button>
+<button id="delete-btn" class="btn btn-danger" onclick="" disabled>Delete <i class="fa-solid fa-trash-can"></i></button>

@@ -17,7 +17,7 @@
 					saveBtn.setAttribute("hidden", "hidden");
 					field.setAttribute("readonly", "true");
 					field.style.border = "none";
-					field.style.backgroundColor = "white";
+					field.style.backgroundColor = "initial";
 				}
 				else {
 					saveBtn.removeAttribute("hidden");
@@ -41,7 +41,7 @@
 		</div>
 		<div>
 			<label for="last-name">Last Name</label>
-			<input id="last-name" type="text" value="@Model.LastName" asp-for=LastName readonly />
+			<input id="last-name" type="text" asp-for=LastName readonly />
 		</div>
 		<div>
 			<label for="birth-date">Birth Date</label>
@@ -49,26 +49,24 @@
 		</div>
 		<div>
 			<label for="city">City</label>
-			<input id="city" type="text" value="@Model.City" asp-for=City readonly/>
+			<input id="city" type="text" asp-for=City readonly/>
 		</div>
 		<div>
 			<label for="street">Street</label>
-			<input id="street" type="text" value="@Model.Street" asp-for=Street readonly />
+			<input id="street" type="text" asp-for=Street readonly />
 		</div>
 		<div>
 			<label for="house-number">House Number</label>
-			<input id="house-number" type="text" value="@Model.HouseNumber"
-			asp-for=HouseNumber readonly />
+			<input id="house-number" type="text" asp-for=HouseNumber readonly />
 		</div>
 		<div>
 			<label for="phone-at-home">Phone at Home</label>
-			<input id="phone-at-home" type="text" value="@Model.PhoneAtHome"
-			asp-for=PhoneAtHome
+			<input id="phone-at-home" type="text" asp-for=PhoneAtHome
 			readonly />
 		</div>
 		<div>
 			<label for="phone">Phone</label>
-			<input id="phone" type="text" value="@Model.Phone" asp-for=Phone
+			<input id="phone" type="text" asp-for=Phone
 			readonly />
 		</div>
 		<button id="save-btn" type="submit" class="btn btn-success" hidden>Save</button>

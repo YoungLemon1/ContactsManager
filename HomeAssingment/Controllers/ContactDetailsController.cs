@@ -11,12 +11,10 @@ namespace HomeAssignment.Controllers
         // GET: ContactDetails
         private readonly IRepository _repository;
         private Contact contact;
-        private bool editing;
         public ContactDetailsController(IRepository repository)
         {
             _repository = repository;
             contact = new Contact();
-            editing = false;
         }
         public IActionResult Index(int id)
         {

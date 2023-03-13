@@ -8,32 +8,36 @@ html {
   }
 }
 
-html {
-  position: relative;
-  min-height: 100%;
-}
 
 body {
   margin-bottom: 60px;
 }
 
-td,td {
-    min-width: 70px;
-    max-width: max-content;
+.contacts-body * {
+    min-width: max-content;
+}
+.contacts-body tr:hover td:not(.checkbox-cell) {
+    background-color: aliceblue;
+    cursor: pointer;
 }
 
-.contacts-body tr:hover {
-    cursor: pointer;
-    background-color: aliceblue;
+.contacts-body tr:hover td.checkbox-cell {
+    cursor: default;
+}
+
+.checkbox-cell th.checkbox-cell,.checkbox-cell {
+    width:20px;
 }
 
 #edit-contact-btn {
     background-color: orange;
-    color:white;
+    color: initial;
 }
 
-
-#edit-contact-form div {
+#edit-contact-fields input{
+    border: 1px solid black;
+}
+#edit-contact-fields div {
     display: block;
     margin-bottom: 8px;
 }
