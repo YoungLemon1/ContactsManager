@@ -2,39 +2,39 @@
 
 <h2>New Contact</h2>
 <form asp-action="CreateContact" class="form-control" id="new-contact-form">
-	<div>
+	<div id="contact-id">
 		<label for="id">Id</label>
-		<input id="id" name="id" type="number" asp-for=Id />
+		<input id="id" name="id" type="number" asp-for=Id min="100000000" max="999999999"/>
 	</div>
-	<div>
+	<div id="contact-first-name">
 		<label for="first-name">First Name</label>
 		<input id="first-name" type="text" asp-for=FirstName />
 	</div>
-	<div>
+	<div id="contact-last-name">
 		<label for="last-name">Last Name</label>
 		<input id="last-name" type="text" asp-for=LastName />
 	</div>
-	<div>
+	<div id="contact-birth-date">
 		<label for="birth-date">Birth Date</label>
 		<input id="birth-date" type="date" asp-for=BirthDate />
 	</div>
-	<div>
+	<div id="contact-city">
 		<label for="city">City</label>
 		<input id="city" type="text" asp-for=City />
 	</div>
-	<div>
+	<div id="contact-street">
 		<label for="street">Street</label>
 		<input id="street" type="text" asp-for=Street />
 	</div>
-	<div>
+	<div id="contact-house-number">
 		<label for="house-number">House Number</label>
 		<input id="house-number" type="number" asp-for=HouseNumber />
 	</div>
-	<div>
+	<div id="contact-phone-at-home">
 		<label for="phone-at-home">Phone at Home</label>
 		<input id="phone-at-home" type="text" asp-for=PhoneAtHome />
 	</div>
-	<div>
+	<div id="contact-phone">
 		<label for="phone">Phone</label>
 		<input id="phone" type="text" asp-for=Phone />
 	</div>

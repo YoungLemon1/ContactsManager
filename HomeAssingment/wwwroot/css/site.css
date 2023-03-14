@@ -28,7 +28,6 @@ button {
 
 .contacts-body tr.selected td:not(.checkbox-cell) {
     background-color: lightsteelblue;
-    cursor: pointer;
 }
 
 .contacts-body tr:hover td.checkbox-cell {
@@ -39,9 +38,13 @@ button {
     width:20px;
 }
 
-#edit-contact-btn {
+#edit-btn {
     color: white;
     background-color: orange;
+}
+
+#edit-btn.clicked {
+    background-color: red;
 }
 
 #edit-contact-form input {

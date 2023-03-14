@@ -9,16 +9,23 @@
 		function ToggleEditingMode() {
 			const contactFields = document.querySelectorAll("input:not(#id)")
 			const exampleInput = contactFields[0];
+			const editBtn = document.getElementById("edit-btn");
 			const saveBtn = document.getElementById("save-btn");
 			contactFields.forEach((field) => {
 				if (editing) {
-					saveBtn.setAttribute("hidden", "hidden");
+					editBtn.textContent = "Edit ✏";
+					editBtn.classList.add("btn-warning")
+					editBtn.classList.remove("clicked", "btn-danger");
 					field.setAttribute("readonly", "true");
+					saveBtn.setAttribute("hidden", "hidden");
+					
 				}
 				else {
-
-					saveBtn.removeAttribute("hidden");
+					editBtn.textContent = "X";
+					editBtn.classList.add("clicked", "btn-warning");
+					editBtn.classList.remove("btn-warning");
 					field.removeAttribute("readonly");
+					saveBtn.removeAttribute("hidden");
 				}
 			})
 			editing = !editing;
@@ -26,6 +33,7 @@
 	</script>
 	<h2>@Model.FirstName @Model.LastName</h2>
 	<form asp-action="SaveEdit" class="form-control" id="edit-contact-form">
+		<button id="edit-btn" type="button" class="btn btn-warning" onclick="ToggleEditingMode()">Edit ✏</button>
 		<div>
 			<label for="id">ID</label>
 			<input id="id" name="id" type="number" asp-for=Id readonly />
@@ -65,7 +73,6 @@
 			readonly />
 		</div>
 		<div>
-			<button id="edit-contact-btn" type="button" class="btn btn-warning" onclick="ToggleEditingMode()">Edit ✏</button>
 			<button id="save-btn" type="submit" class="btn btn-success" hidden>Save</button>
 		</div>
 	</form>

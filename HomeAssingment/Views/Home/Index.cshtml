@@ -4,11 +4,11 @@
 <script>
 
     function RouteToContactDetails(id) {
-        window.location.href = "/ContactDetails/Index/" + id;
+        window.location.href = '@Url.Action("Index", "ContactDetails")' + '?id=' + id;
     }
 
     function RouteToNewContact() {
-        window.location.href = "/NewContact/Index/";
+        window.location.href = '@Url.Action("Index", "NewContact")';
     }
 
     function ResetAllCheckboxes() {
@@ -117,12 +117,12 @@
         @{
             foreach (var contact in Model)
             {
-                            <tr id="@contact.Id">
-                                <td class="checkbox-cell"><input type="checkbox" /></td>
-                                <td>@contact.Id</td>
-                                <td>@contact.FirstName</td>
-                                <td>@contact.LastName</td>
-                            </tr>
+                                <tr id="@contact.Id">
+                                    <td class="checkbox-cell"><input type="checkbox" /></td>
+                                    <td>@contact.Id</td>
+                                    <td>@contact.FirstName</td>
+                                    <td>@contact.LastName</td>
+                                </tr>
             }
         }
     </tbody>
