@@ -13,11 +13,21 @@ body {
   margin-bottom: 60px;
 }
 
+button {
+    margin-top: 4px;
+    margin-right: 8px;
+}
+
 .contacts-body * {
     min-width: max-content;
 }
 .contacts-body tr:hover td:not(.checkbox-cell) {
-    background-color: aliceblue !important;
+    background-color: aliceblue;
+    cursor: pointer;
+}
+
+.contacts-body tr.selected td:not(.checkbox-cell) {
+    background-color: lightsteelblue;
     cursor: pointer;
 }
 
@@ -30,16 +40,31 @@ body {
 }
 
 #edit-contact-btn {
+    color: white;
     background-color: orange;
-    color: initial;
 }
 
-#edit-contact-fields input{
-    border: 1px solid black;
+#edit-contact-form input {
+    background-color: initial;
+    border: 2px solid black;
+    border-radius: 2%;
+    padding-left: 10px;
 }
-#edit-contact-fields div {
-    display: block;
-    margin-bottom: 8px;
+
+#edit-contact-form input[readonly] {
+    background-color: #e0e0e0;
+}
+#edit-contact-form div {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: flex-start;
+}
+#edit-contact-form label {
+    float: left;
+    text-align:right;
+    padding-right: 20px;
+    width: 160px;
 }
 
 form div {

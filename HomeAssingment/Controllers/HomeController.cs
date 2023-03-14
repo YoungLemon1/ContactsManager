@@ -25,31 +25,13 @@ namespace HomeAssignment.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-        public void DeleteMarked(List<int> ids)
+        [HttpPost]
+        public void DeleteMarked([FromBody] List<int> ids)
         {
             foreach (int id in ids)
             {
                 _repository.DeleteContact(id);
             }
         }
-
-        //private string SetTableColumnInt(SqlDataReader ? reader, int column)
-        //{
-        //    if (reader.GetInt32(column) is null)
-        //        return "";
-        //    return reader.GetInt32(column).ToString();
-        //}
-        //private string SetTableColumnString(SqlDataReader ? reader, int column)
-        //{
-        //    if (reader.GetString(column) == null)
-        //        return "";
-        //    return reader.GetString(column).ToString();
-        //}
-
-        //private string SetTableColumnDateTime(SqlDataReader? reader, int column)
-        //{
-
-        //}
     }
 }
