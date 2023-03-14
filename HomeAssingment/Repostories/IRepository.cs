@@ -9,5 +9,6 @@ namespace HomeAssignment.Repostories
         void InsertContact(Contact contact);
         void UpdateContact(Contact contact);
         void DeleteContact(int id);
+        void DeleteAllContacts();
     }
 }

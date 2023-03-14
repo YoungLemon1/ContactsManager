@@ -21,29 +21,47 @@
         if (numEntries > 0) {
             var message = 'Are you sure you want to delete ' + numEntries + ' entry(s)?';
             if (confirm(message)) {
-                var ids = [];
-                console.log(markedRows); // check if markedRows has the expected rows
-                markedRows.each(function () {
-                    console.log($(this).attr('id')); // check if this gives the expected id
-                    ids.push(parseInt($(this).attr('id')));
-                });
-                console.log(ids);
-                $.ajax({
-                    type: 'POST',
-                    url: '@Url.Action("DeleteMarked")',
-                    data: JSON.stringify(ids),
-                    contentType: 'application/json; charset=utf - 8',
-                    success: function () {
-                        alert('Success');
-                        window.location.reload();
-                    },
-                    error: function () {
-                        alert('Error deleting contacts.');
-                    }
-                });
-                ResetAllCheckboxes();
+                var masterCheckboxChecked = $('#master-checkbox').is(':checked');
+                if(masterCheckboxChecked)
+                {
+                    $.ajax({
+                        url: '@Url.Action("DeleteAllContacts")',
+                        success: function () {
+                            alert('Success');
+                            window.location.reload();
+                        },
+                        error: function () {
+                            alert('Error deleting contacts.');
+                        }
+                    });
+                }
+                else
+                {
+                    var ids = [];
+                    console.log(markedRows); // check if markedRows has the expected rows
+                    markedRows.each(function () {
+                        console.log($(this).attr('id')); // check if this gives the expected id
+                        ids.push(parseInt($(this).attr('id')));
+                    });
+                    console.log(ids);
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("DeleteMarked")',
+                        data: JSON.stringify(ids),
+                        contentType: 'application/json; charset=utf - 8',
+                        success: function () {
+                            alert('Success');
+                            window.location.reload();
+                        },
+                        error: function () {
+                            alert('Error deleting contacts.');
+                        }
+                    });
+                }
+                ResetAllCheckboxes();  
             }
-        } else {
+        } 
+        else {
             alert('Please select at least one entry to delete.');
         }
     }
@@ -59,9 +77,6 @@
         $('.contacts-body td.checkbox-cell input[type="checkbox"]').change(function () {
             var checked = $(this).prop('checked');
             var tr = $(this).closest('tr').get(0);
-            console.log('Checkbox:', this);
-            console.log('Closest TR:', tr);
-            console.log('Children count:', tr.childElementCount);
             checked ? tr.classList.add("selected") : tr.classList.remove("selected");
         });
     });
@@ -88,13 +103,6 @@
         });
     });
 
-    // change background color of .checkbox-cell elements
-    $(document).ready(function () {
-        $('.checkbox-cell').css({
-            'background-color': 'initial'
-        });
-    });
-
     // reset the state of the checkbox once the route has changed
     $(document).ready(function () {
         $('.route-changer, td:not(.checkbox-cell)').click(function () {
@@ -107,7 +115,7 @@
 <table border="1" class="table table-bordered table-responsive">
     <thead>
         <tr class="table-primary">
-            <th class="checkbox-cell"><input id="master-checkbox" type="checkbox" /></th>
+            <th id="master-checkbox-cell" class="checkbox-cell"><input id="master-checkbox" type="checkbox" /></th>
             <th>ID</th>
             <th>First Name</th>
             <th>Last Name</th>
@@ -117,12 +125,12 @@
         @{
             foreach (var contact in Model)
             {
-                                <tr id="@contact.Id">
-                                    <td class="checkbox-cell"><input type="checkbox" /></td>
-                                    <td>@contact.Id</td>
-                                    <td>@contact.FirstName</td>
-                                    <td>@contact.LastName</td>
-                                </tr>
+                                        <tr id="@contact.Id">
+                                            <td class="checkbox-cell"><input type="checkbox" /></td>
+                                            <td>@contact.Id</td>
+                                            <td>@contact.FirstName</td>
+                                            <td>@contact.LastName</td>
+                                        </tr>
             }
         }
     </tbody>
