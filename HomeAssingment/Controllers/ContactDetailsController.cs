@@ -16,9 +16,13 @@ namespace HomeAssignment.Controllers
             _repository = repository;
             contact = new Contact();
         }
-        public IActionResult Index(int id)
+        public IActionResult Index(string id)
         {
-            contact = _repository.GetContact(id);
+            var c = _repository.GetContact(id);
+            if (c != null)
+            {
+                contact = c;
+            }
             return View(contact);
         }
 

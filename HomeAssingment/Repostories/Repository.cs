@@ -31,13 +31,16 @@ namespace HomeAssignment.Repostories
         }
         
 
-        public Contact GetContact(int id)
+        public Contact ? GetContact(string id)
         {
             using var connection = new SqlConnection(connectionString);
             connection.Open();
-
             using var command = new SqlCommand($"SELECT * FROM Contacts WHERE Id = {id}", connection);
             var reader = command.ExecuteReader();
+            if (!reader.HasRows)
+            {
+                return null;
+            }
             var contact = new Contact();
             ExecuteDataReaderCommand(reader, contact);
             return contact;
@@ -51,27 +54,20 @@ namespace HomeAssignment.Repostories
             }
         }
 
+
         public void InsertContact(Contact contact)
         {
             using var connection = new SqlConnection(connectionString);
-            connection.Open();
 
             using var command = new SqlCommand(
                 "INSERT INTO Contacts (Id, FirstName, LastName, BirthDate, City, Street, HouseNumber, PhoneAtHome, Phone) " +
                 "VALUES (@Id, @FirstName, @LastName, @BirthDate, @City, @Street, @HouseNumber, @PhoneAtHome, @Phone)",
                 connection);
 
-            command.Parameters.Add("@Id", SqlDbType.Int).Value = contact.Id;
-            command.Parameters.Add("@FirstName", SqlDbType.NVarChar, 20).Value = contact.FirstName;
-            command.Parameters.Add("@LastName", SqlDbType.NVarChar, 20).Value = contact.LastName;
-            command.Parameters.Add("@BirthDate", SqlDbType.DateTime).Value = contact.BirthDate;
-            command.Parameters.Add("@City", SqlDbType.NVarChar, 20).Value = contact.City;
-            command.Parameters.Add("@Street", SqlDbType.NVarChar, 20).Value = contact.Street;
-            command.Parameters.Add("@HouseNumber", SqlDbType.Int).Value = contact.HouseNumber;
-            command.Parameters.Add("@PhoneAtHome", SqlDbType.NVarChar, 20).Value = contact.PhoneAtHome;
-            command.Parameters.Add("@Phone", SqlDbType.NVarChar, 20).Value = contact.Phone;
+            AssignParamsToCommand(contact, command);
 
-            int rowsAffected = command.ExecuteNonQuery();
+            connection.Open();
+            command.ExecuteNonQuery();
         }
 
         public void UpdateContact(Contact contact)
@@ -79,22 +75,14 @@ namespace HomeAssignment.Repostories
             using var connection = new SqlConnection(connectionString);
             using (var command = new SqlCommand("UPDATE Contacts SET Id = @Id, FirstName = @FirstName, LastName = @LastName, BirthDate = @BirthDate, City = @City, Street = @Street, HouseNumber = @HouseNumber, PhoneAtHome = @PhoneAtHome, Phone = @Phone WHERE Id = @Id", connection))
             {
-                command.Parameters.AddWithValue("@Id", contact.Id);
-                command.Parameters.AddWithValue("@FirstName", contact.FirstName);
-                command.Parameters.AddWithValue("@LastName", contact.LastName);
-                command.Parameters.AddWithValue("@BirthDate", contact.BirthDate ?? (object)DBNull.Value);
-                command.Parameters.AddWithValue("@City", contact.City ?? (object)DBNull.Value);
-                command.Parameters.AddWithValue("@Street", contact.Street ?? (object)DBNull.Value);
-                command.Parameters.AddWithValue("@HouseNumber", contact.HouseNumber.HasValue ? contact.HouseNumber.Value : (object)DBNull.Value);
-                command.Parameters.AddWithValue("@PhoneAtHome", contact.PhoneAtHome ?? (object)DBNull.Value);
-                command.Parameters.AddWithValue("@Phone", contact.Phone ?? (object)DBNull.Value);
+                AssignParamsToCommand(contact, command);
 
                 connection.Open();
-                int rowsAffected = command.ExecuteNonQuery();
+                command.ExecuteNonQuery();
             }
         }
 
-        public void DeleteContact(int id)
+        public void DeleteContact(string id)
         {
             using (var connection = new SqlConnection(connectionString))
             {
@@ -114,15 +102,28 @@ namespace HomeAssignment.Repostories
             }
         }
 
+        private static void AssignParamsToCommand(Contact contact, SqlCommand command)
+        {
+            command.Parameters.AddWithValue("@Id", contact.Id).SqlDbType = SqlDbType.NVarChar;
+            command.Parameters.AddWithValue("@FirstName", contact.FirstName).SqlDbType = SqlDbType.NVarChar;
+            command.Parameters.AddWithValue("@LastName", contact.LastName).SqlDbType = SqlDbType.NVarChar;
+            command.Parameters.AddWithValue("@BirthDate", contact.BirthDate ?? (object)DBNull.Value).SqlDbType = SqlDbType.DateTime;
+            command.Parameters.AddWithValue("@City", contact.City ?? (object)DBNull.Value).SqlDbType = SqlDbType.NVarChar;
+            command.Parameters.AddWithValue("@Street", contact.Street ?? (object)DBNull.Value).SqlDbType = SqlDbType.NVarChar;
+            command.Parameters.AddWithValue("@HouseNumber", contact.HouseNumber ?? (object)DBNull.Value).SqlDbType = SqlDbType.Int;
+            command.Parameters.AddWithValue("@PhoneAtHome", contact.PhoneAtHome ?? (object)DBNull.Value).SqlDbType = SqlDbType.NVarChar;
+            command.Parameters.AddWithValue("@Phone", contact.Phone ?? (object)DBNull.Value).SqlDbType = SqlDbType.NVarChar;
+        }
+
         private static void AssignContactFromDb(SqlDataReader dataReader, Contact contact)
         {
-            contact.Id = dataReader.GetInt32(0);
+            contact.Id = dataReader.GetString(0).Trim();
             contact.FirstName = dataReader.IsDBNull(1) ? "" : dataReader.GetString(1).Trim();
             contact.LastName = dataReader.IsDBNull(2) ? "" : dataReader.GetString(2).Trim();
-            contact.BirthDate = dataReader.IsDBNull(3) ? DateTime.MinValue : dataReader.GetDateTime(3);
+            contact.BirthDate = dataReader.IsDBNull(3) ? null : dataReader.GetDateTime(3);
             contact.City = dataReader.IsDBNull(4) ? "" : dataReader.GetString(4).Trim();
             contact.Street = dataReader.IsDBNull(5) ? "" : dataReader.GetString(5).Trim();
-            contact.HouseNumber = dataReader.IsDBNull(6) ? 0 : dataReader.GetInt32(6);
+            contact.HouseNumber = dataReader.IsDBNull(6) ? null : dataReader.GetInt32(6);
             contact.PhoneAtHome = dataReader.IsDBNull(7) ? "" : dataReader.GetString(7).Trim();
             contact.Phone = dataReader.IsDBNull(8) ? "" : dataReader.GetString(8).Trim();  
         }

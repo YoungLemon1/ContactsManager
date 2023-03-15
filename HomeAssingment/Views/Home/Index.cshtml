@@ -41,7 +41,7 @@
                     console.log(markedRows); // check if markedRows has the expected rows
                     markedRows.each(function () {
                         console.log($(this).attr('id')); // check if this gives the expected id
-                        ids.push(parseInt($(this).attr('id')));
+                        ids.push($(this).attr('id'));
                     });
                     console.log(ids);
                     $.ajax({

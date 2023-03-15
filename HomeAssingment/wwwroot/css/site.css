@@ -18,6 +18,10 @@ button {
     margin-right: 8px;
 }
 
+.btn-warning {
+    background-color:orange;
+}
+
 .contacts-body * {
     min-width: max-content;
 }
@@ -34,20 +38,10 @@ button {
     cursor: default;
 }
 
-.checkbox-cell th.checkbox-cell,.checkbox-cell {
+.checkbox-cell {
     width:20px;
-}
-
-input[type="number"]#id::-webkit-inner-spin-button,
-input[type="number"]#id::-webkit-outer-spin-button {
-    -webkit-appearance: none; /* Safari and Chrome */
-    margin: 0;
-}
-
-input[type="number"]#id {
-    -moz-appearance: textfield; /* Firefox */
-    appearance: textfield;
-    /* Additional styles */
+    height: 10px;
+    align-self:center;
 }
 
 #edit-btn {
@@ -81,9 +75,23 @@ input[type="number"]#id {
     width: 160px;
 }
 
+#error-message {
+    color: red;
+}
+
+span.text-danger {
+    display: block;
+    font-size: small;
+    color: red;
+}
+
 form div {
     display: block;
     margin-bottom: 8px;
+}
+
+form input {
+    min-width: 200px;
 }
 
 div label {

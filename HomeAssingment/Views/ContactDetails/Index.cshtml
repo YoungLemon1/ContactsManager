@@ -1,7 +1,32 @@
 ﻿@model HomeAssignment.Models.Contact
 
 <div>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
+		$(document).ready(function () {
+			// function to sanitize input and remove escape characters
+			function sanitizeInput(input) {
+				// list of escape characters to remove
+				const escapeChars = /[<>"/'\\?!&=]/g;
+
+				// remove any escape characters from the input
+				return input.replace(escapeChars, '');
+			}
+
+			// get all the input fields inside the form
+			const inputs = $('form input');
+			const idInput = $('form input#id');
+
+			inputs.each(function () {
+				$(this).on('input', function () {
+					const sanitizedInput = sanitizeInput($(this).val());
+					$(this).val(sanitizedInput);
+				});
+			});
+		});
+	</script>
+	<script>
+
 		var editing = false;
 		var originalValues = {};
 
@@ -56,7 +81,7 @@
 		<button id="edit-btn" type="button" class="btn btn-warning" onclick="ToggleEditingMode()">Edit ✏</button>
 		<div>
 			<label for="id">ID</label>
-			<input id="id" name="id" type="number" asp-for=Id readonly />
+			<input id="id" name="id" type="text" asp-for=Id required readonly />
 		</div>
 		<div>
 			<label for="first-name">First Name</label>
@@ -72,7 +97,7 @@
 		</div>
 		<div>
 			<label for="city">City</label>
-			<input id="city" type="text" asp-for=City readonly/>
+			<input id="city" type="text" asp-for=City readonly />
 		</div>
 		<div>
 			<label for="street">Street</label>
@@ -80,17 +105,17 @@
 		</div>
 		<div>
 			<label for="house-number">House Number</label>
-			<input id="house-number" type="text" asp-for=HouseNumber readonly />
+			<input id="house-number" type="number" asp-for=HouseNumber readonly min="1" max="500" />
 		</div>
 		<div>
 			<label for="phone-at-home">Phone at Home</label>
-			<input id="phone-at-home" type="text" asp-for=PhoneAtHome
-			readonly />
+			<input id="phone-at-home" type="text" asp-for=PhoneAtHome maxlength="10"
+				   readonly />
 		</div>
 		<div>
 			<label for="phone">Phone</label>
-			<input id="phone" type="text" asp-for=Phone
-			readonly />
+			<input id="phone" type="text" asp-for=Phone maxlength="10"
+				   readonly />
 		</div>
 		<div>
 			<button id="save-btn" type="submit" class="btn btn-success" hidden>Save</button>

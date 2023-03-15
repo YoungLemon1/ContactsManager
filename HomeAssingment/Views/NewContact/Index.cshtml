@@ -14,10 +14,17 @@
 
 		// get all the input fields inside the form
 		const inputs = $('form input');
+		const idInput = $('form input#id');
 
-		// loop through each input field and add an event listener to sanitize the input on change
 		inputs.each(function () {
-			$(this).on('change', function () {
+			$(this).on('input', function () {
+				if ($(this).is(idInput)) {
+					const value = $(this).val();
+					if (!/^\d+$/.test(value)) {
+						$(this).val(value.substring(0, value.length - 1));
+						return;
+					}
+				}
 				const sanitizedInput = sanitizeInput($(this).val());
 				$(this).val(sanitizedInput);
 			});
@@ -25,42 +32,52 @@
 	});
 </script>
 <h2>New Contact</h2>
+<div id="error-message">@TempData["ErrorMessage"]</div>
 <form asp-action="CreateContact" class="form-control" id="new-contact-form">
-	<div id="contact-id">
+	<div>
 		<label for="id">Id</label>
-		<input id="id" name="id" type="number" asp-for=Id min="100000000" max="999999999"/>
+		<input id="id" name="id" type="text" asp-for=Id maxlength="9" required />
+		<span asp-validation-for="Id" class="text-danger"></span>
 	</div>
-	<div id="contact-first-name">
+	<div>
 		<label for="first-name">First Name</label>
-		<input id="first-name" type="text" asp-for=FirstName required/>
+		<input id="first-name" type="text" asp-for=FirstName required />
+		<span asp-validation-for="FirstName" class="text-danger"></span>
 	</div>
-	<div id="contact-last-name">
+	<div>
 		<label for="last-name">Last Name</label>
 		<input id="last-name" type="text" asp-for=LastName required />
+		<span asp-validation-for="LastName" class="text-danger"></span>
 	</div>
-	<div id="contact-birth-date">
+	<div>
 		<label for="birth-date">Birth Date</label>
 		<input id="birth-date" type="date" asp-for=BirthDate />
+		<span asp-validation-for="BirthDate" class="text-danger"></span>
 	</div>
-	<div id="contact-city">
+	<div>
 		<label for="city">City</label>
 		<input id="city" type="text" asp-for=City />
+		<span asp-validation-for="City" class="text-danger"></span>
 	</div>
-	<div id="contact-street">
+	<div>
 		<label for="street">Street</label>
 		<input id="street" type="text" asp-for=Street />
+		<span asp-validation-for="Street" class="text-danger"></span>
 	</div>
-	<div id="contact-house-number">
+	<div>
 		<label for="house-number">House Number</label>
 		<input id="house-number" type="number" asp-for=HouseNumber />
+		<span asp-validation-for="HouseNumber" class="text-danger"></span>
 	</div>
-	<div id="contact-phone-at-home">
+	<div>
 		<label for="phone-at-home">Phone at Home</label>
-		<input id="phone-at-home" type="text" asp-for=PhoneAtHome />
+		<input id="phone-at-home" type="text" asp-for=PhoneAtHome maxlength="10" />
+		<span asp-validation-for="PhoneAtHome" class="text-danger"></span>
 	</div>
-	<div id="contact-phone">
+	<div>
 		<label for="phone">Phone</label>
-		<input id="phone" type="text" asp-for=Phone />
+		<input id="phone" type="text" asp-for=Phone maxlength="10" />
+		<span asp-validation-for="Phone" class="text-danger"></span>
 	</div>
 	<button class="btn btn-success" type="submit">Save contact</button>
 </form>

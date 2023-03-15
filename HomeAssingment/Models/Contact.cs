@@ -4,8 +4,12 @@ namespace HomeAssignment.Models
 {
     public class Contact
     {
-        public int Id { get; set; }
+        [Key]
+        [Required(ErrorMessage = "ID is Required")]
+        public string Id { get; set; }
+        [Required(ErrorMessage = "First Name is Required")]
         public string FirstName { get; set; }
+        [Required(ErrorMessage = "Last Name is Required")]
         public string LastName { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime ? BirthDate { get; set; }

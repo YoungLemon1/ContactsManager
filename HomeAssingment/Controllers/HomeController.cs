@@ -26,9 +26,9 @@ namespace HomeAssignment.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
         [HttpPost]
-        public void DeleteMarked([FromBody] List<int> ids)
+        public void DeleteMarked([FromBody] List<string> ids)
         {
-            foreach (int id in ids)
+            foreach (string id in ids)
             {
                 _repository.DeleteContact(id);
             }
