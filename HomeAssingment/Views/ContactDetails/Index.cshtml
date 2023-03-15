@@ -31,7 +31,7 @@
 
 					editBtn.textContent = "Edit ✏";
 					editBtn.classList.add("btn-warning");
-					editBtn.classList.remove("clicked", "btn-danger");
+					editBtn.classList.remove("btn-danger");
 					field.setAttribute("readonly", "true");
 					field.value = originalValues[field.id];
 					saveBtn.setAttribute("hidden", "hidden");
@@ -41,7 +41,7 @@
 				contactFields.forEach((field) => {
 					originalValues[field.id] = field.value;
 					editBtn.textContent = "X";
-					editBtn.classList.add("clicked", "btn-warning");
+					editBtn.classList.add("btn-danger");
 					editBtn.classList.remove("btn-warning");
 					field.removeAttribute("readonly");
 					saveBtn.removeAttribute("hidden");

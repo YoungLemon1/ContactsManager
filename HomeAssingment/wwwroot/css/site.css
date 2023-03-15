@@ -52,7 +52,6 @@ input[type="number"]#id {
 
 #edit-btn {
     color: white;
-    background-color: orange;
 }
 
 #edit-btn.clicked {
