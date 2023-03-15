@@ -16,7 +16,7 @@
     }
 
     function DeleteContacts() {
-        var markedRows = $('.contacts-body input[type="checkbox"]:checked').closest('tr');
+        var markedRows = $('.contacts-body input[type="checkbox"]:checked').closest('tr'); 
         var numEntries = markedRows.length;
         if (numEntries > 0) {
             var message = 'Are you sure you want to delete ' + numEntries + ' entry(s)?';

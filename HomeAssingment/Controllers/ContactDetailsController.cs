@@ -25,6 +25,7 @@ namespace HomeAssignment.Controllers
         // GET: ContactDetails/Edit/5
         public IActionResult SaveEdit(Contact contact)
         {
+
             _repository.UpdateContact(contact);
             return RedirectToAction("Index", contact);
         }

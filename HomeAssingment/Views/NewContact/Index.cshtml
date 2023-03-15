@@ -1,5 +1,29 @@
 ﻿@model HomeAssignment.Models.Contact
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+	$(document).ready(function () {
+		// function to sanitize input and remove escape characters
+		function sanitizeInput(input) {
+			// list of escape characters to remove
+			const escapeChars = /[<>"/'\\?!&=]/g;
+
+			// remove any escape characters from the input
+			return input.replace(escapeChars, '');
+		}
+
+		// get all the input fields inside the form
+		const inputs = $('form input');
+
+		// loop through each input field and add an event listener to sanitize the input on change
+		inputs.each(function () {
+			$(this).on('change', function () {
+				const sanitizedInput = sanitizeInput($(this).val());
+				$(this).val(sanitizedInput);
+			});
+		});
+	});
+</script>
 <h2>New Contact</h2>
 <form asp-action="CreateContact" class="form-control" id="new-contact-form">
 	<div id="contact-id">
@@ -8,11 +32,11 @@
 	</div>
 	<div id="contact-first-name">
 		<label for="first-name">First Name</label>
-		<input id="first-name" type="text" asp-for=FirstName />
+		<input id="first-name" type="text" asp-for=FirstName required/>
 	</div>
 	<div id="contact-last-name">
 		<label for="last-name">Last Name</label>
-		<input id="last-name" type="text" asp-for=LastName />
+		<input id="last-name" type="text" asp-for=LastName required />
 	</div>
 	<div id="contact-birth-date">
 		<label for="birth-date">Birth Date</label>

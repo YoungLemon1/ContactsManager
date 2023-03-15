@@ -38,6 +38,18 @@ button {
     width:20px;
 }
 
+input[type="number"]#id::-webkit-inner-spin-button,
+input[type="number"]#id::-webkit-outer-spin-button {
+    -webkit-appearance: none; /* Safari and Chrome */
+    margin: 0;
+}
+
+input[type="number"]#id {
+    -moz-appearance: textfield; /* Firefox */
+    appearance: textfield;
+    /* Additional styles */
+}
+
 #edit-btn {
     color: white;
     background-color: orange;

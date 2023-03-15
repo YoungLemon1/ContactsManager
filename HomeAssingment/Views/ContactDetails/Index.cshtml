@@ -3,38 +3,56 @@
 <div>
 	<script>
 		var editing = false;
+		var originalValues = {};
+
 		function ToggleEditingMode() {
-			const contactFields = document.querySelectorAll("input:not(#id)")
-			const exampleInput = contactFields[0];
+			const contactFields = document.querySelectorAll("input:not(#id)");
 			const editBtn = document.getElementById("edit-btn");
 			const saveBtn = document.getElementById("save-btn");
-			contactFields.forEach((field) => {
-				if (editing) {
+
+			if (editing) {
+				let valuesChanged = false;
+				contactFields.forEach((field) => {
+					if (field.value !== originalValues[field.id]) {
+						valuesChanged = true;
+					}
+					field.setAttribute("readonly", "true");
+				});
+
+				if (valuesChanged) {
+					if (!confirm("Are you sure you want to exit edit mode without saving?")) {
+						// User cancelled, go back into editing mode
+						editing = true;
+						return;
+					}
+				}
+
+				contactFields.forEach((field) => {
+
 					editBtn.textContent = "Edit ✏";
-					editBtn.classList.add("btn-warning")
+					editBtn.classList.add("btn-warning");
 					editBtn.classList.remove("clicked", "btn-danger");
 					field.setAttribute("readonly", "true");
+					field.value = originalValues[field.id];
 					saveBtn.setAttribute("hidden", "hidden");
-					
-				}
-				else {
+				});
+			}
+			else {
+				contactFields.forEach((field) => {
+					originalValues[field.id] = field.value;
 					editBtn.textContent = "X";
 					editBtn.classList.add("clicked", "btn-warning");
 					editBtn.classList.remove("btn-warning");
 					field.removeAttribute("readonly");
 					saveBtn.removeAttribute("hidden");
-				}
-			})
+				});
+			}
 			editing = !editing;
 		}
-
-		function AlertChanges()
-		{
-			alert("changes saved");
-		}
 	</script>
+
 	<h2>@Model.FirstName @Model.LastName</h2>
-	<form asp-action="SaveEdit" class="form-control" id="edit-contact-form" onsubmit="AlertChanges()">
+	<form asp-action="SaveEdit" class="form-control" id="edit-contact-form">
 		<button id="edit-btn" type="button" class="btn btn-warning" onclick="ToggleEditingMode()">Edit ✏</button>
 		<div>
 			<label for="id">ID</label>
@@ -42,11 +60,11 @@
 		</div>
 		<div>
 			<label for="first-name">First Name</label>
-			<input id="first-name" type="text" asp-for=FirstName readonly/>
+			<input id="first-name" type="text" asp-for=FirstName required readonly />
 		</div>
 		<div>
 			<label for="last-name">Last Name</label>
-			<input id="last-name" type="text" asp-for=LastName readonly />
+			<input id="last-name" type="text" asp-for=LastName required readonly />
 		</div>
 		<div>
 			<label for="birth-date">Birth Date</label>

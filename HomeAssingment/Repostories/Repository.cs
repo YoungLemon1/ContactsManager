@@ -62,8 +62,8 @@ namespace HomeAssignment.Repostories
                 connection);
 
             command.Parameters.Add("@Id", SqlDbType.Int).Value = contact.Id;
-            command.Parameters.Add("@FirstName", SqlDbType.NVarChar, 30).Value = contact.FirstName;
-            command.Parameters.Add("@LastName", SqlDbType.NVarChar, 30).Value = contact.LastName;
+            command.Parameters.Add("@FirstName", SqlDbType.NVarChar, 20).Value = contact.FirstName;
+            command.Parameters.Add("@LastName", SqlDbType.NVarChar, 20).Value = contact.LastName;
             command.Parameters.Add("@BirthDate", SqlDbType.DateTime).Value = contact.BirthDate;
             command.Parameters.Add("@City", SqlDbType.NVarChar, 20).Value = contact.City;
             command.Parameters.Add("@Street", SqlDbType.NVarChar, 20).Value = contact.Street;
@@ -82,7 +82,7 @@ namespace HomeAssignment.Repostories
                 command.Parameters.AddWithValue("@Id", contact.Id);
                 command.Parameters.AddWithValue("@FirstName", contact.FirstName);
                 command.Parameters.AddWithValue("@LastName", contact.LastName);
-                command.Parameters.AddWithValue("@BirthDate", contact.BirthDate);
+                command.Parameters.AddWithValue("@BirthDate", contact.BirthDate ?? (object)DBNull.Value);
                 command.Parameters.AddWithValue("@City", contact.City ?? (object)DBNull.Value);
                 command.Parameters.AddWithValue("@Street", contact.Street ?? (object)DBNull.Value);
                 command.Parameters.AddWithValue("@HouseNumber", contact.HouseNumber.HasValue ? contact.HouseNumber.Value : (object)DBNull.Value);
