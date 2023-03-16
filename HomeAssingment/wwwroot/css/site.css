@@ -44,10 +44,6 @@ table#contacts-table {
     align-self:center;
 }
 
-td, th {
-    max-width:200px;
-}
-
 #edit-btn {
     color: white;
 }
