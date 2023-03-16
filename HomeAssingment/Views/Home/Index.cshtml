@@ -125,12 +125,12 @@
         @{
             foreach (var contact in Model)
             {
-                                        <tr id="@contact.Id">
-                                            <td class="checkbox-cell"><input type="checkbox" /></td>
-                                            <td>@contact.Id</td>
-                                            <td>@contact.FirstName</td>
-                                            <td>@contact.LastName</td>
-                                        </tr>
+                <tr id="@contact.Id">
+                    <td class="checkbox-cell"><input type="checkbox" /></td>
+                    <td>@contact.Id</td>
+                    <td>@contact.FirstName</td>
+                    <td>@contact.LastName</td>
+                </tr>
             }
         }
     </tbody>
