@@ -40,12 +40,12 @@
 	</div>
 	<div>
 		<label for="phone-at-home">Phone at Home</label>
-		<input id="phone-at-home" type="text" asp-for=PhoneAtHome pattern="[0-9\-\+\()]+" maxlength="25" title="Phone at home cannot include letters" />
+		<input id="phone-at-home" type="text" asp-for=PhoneAtHome pattern="[0-9\-\+\()]+" maxlength="20" title="Phone at home cannot include letters" />
 		<span asp-validation-for="PhoneAtHome" class="text-danger"></span>
 	</div>
 	<div>
 		<label for="phone">Phone</label>
-		<input id="phone" type="text" asp-for=Phone pattern="[0-9\-\+\()]+" maxlength="25" title="Phone cannot include letters" />
+		<input id="phone" type="text" asp-for=Phone pattern="[0-9\-\+\()]+" maxlength="20" title="Phone cannot include letters" />
 		<span asp-validation-for="Phone" class="text-danger"></span>
 	</div>
 	<button class="btn btn-success" type="submit">Save contact</button>

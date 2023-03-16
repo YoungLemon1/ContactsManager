@@ -54,6 +54,16 @@ namespace HomeAssignment.Controllers
                 ModelState.AddModelError("LastName", "Last Name must be at least 2 letters long");
             }
 
+            if (contact.City != null && contact.City.Length < 2 )
+            {
+                ModelState.AddModelError("City", "E");
+            }
+
+            if (contact.BirthDate < new DateTime(1900, 1, 1) || contact.BirthDate > DateTime.Now)
+            {
+                ModelState.AddModelError("BirthDate", "Date out of range");
+            }
+
             if (ModelState.IsValid)
             {
                 _repository.InsertContact(contact);

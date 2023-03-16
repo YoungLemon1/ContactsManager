@@ -54,12 +54,17 @@ namespace HomeAssignment.Controllers
                 ModelState.AddModelError("LastName", "Last Name must be at least 2 letters long");
             }
 
+            if (contact.BirthDate < new DateTime(1900, 1, 1) || contact.BirthDate > DateTime.Now)
+            {
+                ModelState.AddModelError("BirthDate", "Date out of range");
+            }
+
             if (ModelState.IsValid)
             {
                 _repository.UpdateContact(contact);
             }
             else TempData["ErrorMessage"] = "Submit failed, one or more parameters are incorrect";
-            return RedirectToAction("Index", contact);
+            return RedirectToAction("Index", new { id = contact.Id });
         }
     }
 }
