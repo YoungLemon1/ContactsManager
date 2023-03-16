@@ -11,11 +11,11 @@ namespace HomeAssignment.Models
         public string Id { get; set; }
 
         [Required(ErrorMessage = "First Name is Required")]
-        [RegularExpression("[A-Za-z\\s\\-]")]
+        [RegularExpression("[A-Za-z\\s\\-]{2,}")]
         public string FirstName { get; set; }
 
         [Required(ErrorMessage = "Last Name is Required")]
-        [RegularExpression("[A-Za-z\\s\\-]")]
+        [RegularExpression("[A-Za-z\\s\\-]{2,}")]
         public string LastName { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
