@@ -7,11 +7,9 @@ namespace HomeAssignment.Controllers
 	public class NewContactController : Controller
 	{
 		private readonly IRepository _repository;
-		private Contact contact;
 		public NewContactController(IRepository repository)
 		{
 			_repository = repository;
-			contact = new Contact();
 		}
 
 		public IActionResult Index(Contact contact)
