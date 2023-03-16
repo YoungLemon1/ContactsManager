@@ -7,15 +7,20 @@ namespace HomeAssignment.Controllers
 	public class NewContactController : Controller
 	{
 		private readonly IRepository _repository;
-		private readonly Contact contact;
+		private Contact contact;
 		public NewContactController(IRepository repository)
 		{
 			_repository = repository;
 			contact = new Contact();
 		}
 
-		public IActionResult Index(Contact contact)
+		public IActionResult Index(string id)
 		{
+            var c = _repository.GetContact(id);
+            if (c != null)
+            {
+                contact = c;
+            }
 			return View(contact);
 		}
 

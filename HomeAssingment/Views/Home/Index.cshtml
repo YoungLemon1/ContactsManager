@@ -22,12 +22,11 @@
             var message = 'Are you sure you want to delete ' + numEntries + ' entry(s)?';
             if (confirm(message)) {
                 var masterCheckboxChecked = $('#master-checkbox').is(':checked');
-                if(masterCheckboxChecked)
-                {
+                if (masterCheckboxChecked) {
                     $.ajax({
                         url: '@Url.Action("DeleteAllContacts")',
                         success: function () {
-                            alert('Success');
+                            alert('Item(s) deleted');
                             window.location.reload();
                         },
                         error: function () {
@@ -35,8 +34,7 @@
                         }
                     });
                 }
-                else
-                {
+                else {
                     var ids = [];
                     console.log(markedRows); // check if markedRows has the expected rows
                     markedRows.each(function () {

@@ -33,6 +33,7 @@ namespace HomeAssignment.Controllers
                 _repository.DeleteContact(id);
             }
         }
+
         public void DeleteAllContacts()
         {
             _repository.DeleteAllContacts();

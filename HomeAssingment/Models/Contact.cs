@@ -18,7 +18,6 @@ namespace HomeAssignment.Models
         [RegularExpression("[A-Za-z]{2,}")]
         public string LastName { get; set; }
 
-
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         [Range(typeof(DateTime), "1/1/1900", "1/1/2023", ErrorMessage = "Date out of range")]
         public DateTime? BirthDate { get; set; }
