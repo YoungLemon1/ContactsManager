@@ -44,6 +44,16 @@ namespace HomeAssignment.Controllers
                 ModelState.AddModelError("LastName", "Last Name is required");
             }
 
+            if (contact.FirstName.Length < 2)
+            {
+                ModelState.AddModelError("FirstName", "First Name must be at least 2 letters long");
+            }
+
+            if (contact.LastName.Length < 2)
+            {
+                ModelState.AddModelError("LastName", "Last Name must be at least 2 letters long");
+            }
+
             if (ModelState.IsValid)
             {
                 _repository.InsertContact(contact);
