@@ -16,7 +16,7 @@
     }
 
     function DeleteContacts() {
-        var markedRows = $('.contacts-body input[type="checkbox"]:checked').closest('tr'); 
+        var markedRows = $('.contacts-body input[type="checkbox"]:checked').closest('tr');
         var numEntries = markedRows.length;
         if (numEntries > 0) {
             var message = 'Are you sure you want to delete ' + numEntries + ' entry(s)?';
@@ -48,7 +48,7 @@
                         data: JSON.stringify(ids),
                         contentType: 'application/json; charset=utf - 8',
                         success: function () {
-                            alert('Success');
+                            alert('Item(s) deleted');
                             window.location.reload();
                         },
                         error: function () {
@@ -56,9 +56,9 @@
                         }
                     });
                 }
-                ResetAllCheckboxes();  
+                ResetAllCheckboxes();
             }
-        } 
+        }
         else {
             alert('Please select at least one entry to delete.');
         }
@@ -104,7 +104,7 @@
     // reset the state of the checkbox once the route has changed
     $(document).ready(function () {
         $('.route-changer, td:not(.checkbox-cell)').click(function () {
-        ResetAllCheckboxes();
+            ResetAllCheckboxes();
         });
     });
 </script>

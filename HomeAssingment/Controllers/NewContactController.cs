@@ -14,14 +14,9 @@ namespace HomeAssignment.Controllers
 			contact = new Contact();
 		}
 
-		public IActionResult Index(string id)
+		public IActionResult Index(Contact contact)
 		{
-            var c = _repository.GetContact(id);
-            if (c != null)
-            {
-                contact = c;
-            }
-			return View(contact);
+            return View(contact);
 		}
 
         [HttpPost]
