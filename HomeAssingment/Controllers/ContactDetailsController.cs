@@ -26,7 +26,7 @@ namespace HomeAssignment.Controllers
             return View(contact);
         }
 
-        // GET: ContactDetails/Edit/5
+        [HttpPost]
         public IActionResult SaveEdit(Contact contact)
         {
 

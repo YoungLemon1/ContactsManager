@@ -13,13 +13,8 @@ body {
   margin-bottom: 60px;
 }
 
-button {
-    margin-top: 4px;
-    margin-right: 8px;
-}
-
-.btn-warning {
-    background-color:orange;
+table#contacts-table {
+    max-width: 800px;
 }
 
 .contacts-body * {
@@ -42,6 +37,15 @@ button {
     width:20px;
     height: 10px;
     align-self:center;
+}
+
+button {
+    margin-top: 4px;
+    margin-right: 8px;
+}
+
+.btn-warning {
+    background-color: orange;
 }
 
 #edit-btn {
