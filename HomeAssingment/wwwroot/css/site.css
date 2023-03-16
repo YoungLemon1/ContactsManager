@@ -13,9 +13,8 @@ body {
   margin-bottom: 60px;
 }
 
-button {
-    margin-top: 4px;
-    margin-right: 8px;
+table#contacts-table {
+    max-width: 800px;
 }
 
 .btn-warning {
@@ -43,10 +42,6 @@ table#contacts-table {
     width:20px;
     height: 10px;
     align-self:center;
-}
-
-td, th {
-    max-width:200px;
 }
 
 #edit-btn {
