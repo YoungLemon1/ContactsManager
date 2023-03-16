@@ -14,9 +14,9 @@ namespace HomeAssignment.Models
         [Required(ErrorMessage = "Last Name is Required")]
         [RegularExpression("[A-Za-z]{2,}", ErrorMessage = "Last name should be at least 2 letters long")]
         public string LastName { get; set; }
+
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
-        [Range(typeof(DateTime), "1/1/1900", "{0:dd/MM/yyyy}",
-ErrorMessage = "Ivalid date")]
+        [Range(typeof(DateTime), "1/1/1900", "1/1/2023")]
         public DateTime? BirthDate { get; set; }
         [RegularExpression("[A-Za-z]{2,}", ErrorMessage = "City should be at least 2 letters long")]
         public string? City { get; set; }
