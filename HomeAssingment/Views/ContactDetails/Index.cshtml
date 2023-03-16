@@ -68,7 +68,7 @@
 		</div>
 		<div>
 			<label for="last-name">Last Name</label>
-			<input id="first-name" type="text" asp-for=FirstName pattern="[A-Za-z]{2,}" maxlength="15" title="Last name should be at least 2 letters long" required readonly/>
+			<input id="first-name" type="text" asp-for=LastName pattern="[A-Za-z]{2,}" maxlength="15" title="Last name should be at least 2 letters long" required readonly />
 			<span asp-validation-for="LastName" class="text-danger"></span>
 		</div>
 		<div>
@@ -78,12 +78,12 @@
 		</div>
 		<div>
 			<label for="city">City</label>
-			<input id="city" type="text" asp-for=City pattern="[A-Za-z]{2,}" maxlength="20" title="City name should be at least 2 letters long" readonly />
+			<input id="city" type="text" asp-for=City pattern="[A-Za-z\s\-]{2,}" maxlength="20" title="City name should be at least 2 letters long" readonly />
 			<span asp-validation-for="City" class="text-danger"></span>
 		</div>
 		<div>
 			<label for="street">Street</label>
-			<input id="street" type="text" asp-for=Street pattern="[A-Za-z]{2,}" maxlength="20" title="Street name should be at least 2 letters long" readonly />
+			<input id="street" type="text" asp-for=Street pattern="[A-Za-z\s\-]{2,}" maxlength="20" title="Street name should be at least 2 letters long" readonly />
 			<span asp-validation-for="Street" class="text-danger"></span>
 		</div>
 		<div>

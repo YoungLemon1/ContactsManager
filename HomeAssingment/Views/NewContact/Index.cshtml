@@ -25,12 +25,12 @@
 	</div>
 	<div>
 		<label for="city">City</label>
-		<input id="city" type="text" asp-for=City pattern="[A-Za-z]{2,}" maxlength="20" />
+		<input id="city" type="text" asp-for=City pattern="[A-Za-z\s\-]{2,}" maxlength="20" />
 		<span asp-validation-for="City" class="text-danger"></span>
 	</div>
 	<div>
 		<label for="street">Street</label>
-		<input id="street" type="text" asp-for=Street pattern="[A-Za-z]{2,}" maxlength="20" />
+		<input id="street" type="text" asp-for=Street pattern="[A-Za-z\s\-]{2,}" maxlength="20" />
 		<span asp-validation-for="Street" class="text-danger"></span>
 	</div>
 	<div>

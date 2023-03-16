@@ -16,9 +16,9 @@ namespace HomeAssignment.Models
         public string LastName { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? BirthDate { get; set; }
-        [RegularExpression("[A-Za-z]{2,}", ErrorMessage = "City should be at least 2 letters long")]
+        [RegularExpression("[A-Za-z\\s\\-]{2,}", ErrorMessage = "City should be at least 2 letters long")]
         public string? City { get; set; }
-        [RegularExpression("[A-Za-z]{2,}", ErrorMessage = "Street should be at least 2 letters long")]
+        [RegularExpression("[A-Za-z\\s\\-]{2,}", ErrorMessage = "Street should be at least 2 letters long")]
         public string? Street { get; set; }
         [RegularExpression("[0-9]+", ErrorMessage = "House number should be 4 digits long")]
         public int? HouseNumber { get; set; }

@@ -29,8 +29,36 @@ namespace HomeAssignment.Controllers
         // GET: ContactDetails/Edit/5
         public IActionResult SaveEdit(Contact contact)
         {
+            if (contact.Id.Length != 9)
+            {
+                ModelState.AddModelError("Id", "Id must be 9 digits long");
+            }
 
-            _repository.UpdateContact(contact);
+            if (string.IsNullOrEmpty(contact.FirstName))
+            {
+                ModelState.AddModelError("FirstName", "First Name is required");
+            }
+
+            if (string.IsNullOrEmpty(contact.LastName))
+            {
+                ModelState.AddModelError("LastName", "Last Name is required");
+            }
+
+            if (contact.FirstName.Length < 2)
+            {
+                ModelState.AddModelError("FirstName", "First Name must be at least 2 letters long");
+            }
+
+            if (contact.LastName.Length < 2)
+            {
+                ModelState.AddModelError("LastName", "Last Name must be at least 2 letters long");
+            }
+
+            if (ModelState.IsValid)
+            {
+                _repository.UpdateContact(contact);
+            }
+            else TempData["ErrorMessage"] = "Submit failed, one or more parameters are incorrect";
             return RedirectToAction("Index", contact);
         }
     }
