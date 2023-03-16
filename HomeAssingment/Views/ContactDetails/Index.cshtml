@@ -64,12 +64,12 @@
 		</div>
 		<div>
 			<label for="first-name">First Name</label>
-			<input id="first-name" type="text" asp-for=FirstName pattern="[A-Za-z]{2,}" maxlength="15" title="First name should be at least 2 letters long" required readonly />
+			<input id="first-name" type="text" asp-for=FirstName pattern="[A-Za-z]{2,}" maxlength="15" title="only 2 or more letters allowed" required readonly />
 			<span asp-validation-for="FirstName" class="text-danger"></span>
 		</div>
 		<div>
 			<label for="last-name">Last Name</label>
-			<input id="first-name" type="text" asp-for=LastName pattern="[A-Za-z]{2,}" maxlength="15" title="Last name should be at least 2 letters long" required readonly/>
+			<input id="last-name" type="text" asp-for=LastName pattern="[A-Za-z]{2,}" maxlength="15" title="only 2 or more letters allowed" required readonly />
 			<span asp-validation-for="LastName" class="text-danger"></span>
 		</div>
 		<div>
