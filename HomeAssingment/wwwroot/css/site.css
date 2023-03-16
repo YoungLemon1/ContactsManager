@@ -22,9 +22,10 @@ button {
     background-color:orange;
 }
 
-.contacts-body * {
-    min-width: max-content;
+table#contacts-table {
+    max-width:800px;
 }
+
 .contacts-body tr:hover td:not(.checkbox-cell) {
     background-color: aliceblue;
     cursor: pointer;
@@ -42,6 +43,10 @@ button {
     width:20px;
     height: 10px;
     align-self:center;
+}
+
+td, th {
+    max-width:200px;
 }
 
 #edit-btn {

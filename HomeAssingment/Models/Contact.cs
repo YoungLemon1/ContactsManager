@@ -22,9 +22,9 @@ namespace HomeAssignment.Models
         public string? Street { get; set; }
         [RegularExpression("[0-9]+", ErrorMessage = "House number should be 4 digits long")]
         public int? HouseNumber { get; set; }
-        [RegularExpression("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$", ErrorMessage = "Phone at home should be 10 digits long")]
+        [RegularExpression("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$", ErrorMessage = "Invalid phone number")]
         public string? PhoneAtHome { get; set; }
-        [RegularExpression("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$", ErrorMessage = "Phone should be 10 digits long")]
+        [RegularExpression("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$", ErrorMessage = "Invalid phone number")]
         public string? Phone { get; set; }
     }
 }
