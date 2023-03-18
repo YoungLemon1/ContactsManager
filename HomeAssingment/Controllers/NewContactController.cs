@@ -20,6 +20,12 @@ namespace HomeAssignment.Controllers
         [HttpPost]
 		public IActionResult CreateContact(Contact contact)
 		{
+			var contactExsists = _repository.GetContact(contact.Id) != null;
+
+            if (contactExsists)
+            {
+                ModelState.AddModelError("Id", "Id already Exists");
+            }
 
             if (ModelState.IsValid)
             {

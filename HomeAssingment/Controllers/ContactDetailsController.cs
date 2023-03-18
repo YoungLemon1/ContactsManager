@@ -25,15 +25,15 @@ namespace HomeAssignment.Controllers
             }
             return View(contact);
         }
-        //[HttpPost]
-        //public IActionResult Index(Contact contact)
-        //{
-        //    return View(contact);
-        //}
-
-        // GET: ContactDetails/Edit/5
         public IActionResult SaveEdit(Contact contact)
         {
+            var contactExsists = _repository.GetContact(contact.Id) != null;
+
+            if (contactExsists)
+            {
+                ModelState.AddModelError("Id", "Id already Exists");
+            }
+
             if (ModelState.IsValid)
             {
                 _repository.UpdateContact(contact);
