@@ -20,7 +20,6 @@ namespace HomeAssignment.Controllers
         [HttpPost]
 		public IActionResult CreateContact(Contact contact)
 		{
-			var contactExsists = _repository.GetContact(contact.Id) != null;
 
             if (ModelState.IsValid)
             {
