@@ -22,46 +22,6 @@ namespace HomeAssignment.Controllers
 		{
 			var contactExsists = _repository.GetContact(contact.Id) != null;
 
-            if (contactExsists)
-            {
-                ModelState.AddModelError("Id", "Id already Exists");
-            }
-
-			if (contact.Id.Length != 9)
-			{
-                ModelState.AddModelError("Id", "Id must be 9 digits long");
-            }
-
-			if (string.IsNullOrEmpty(contact.FirstName))
-			{
-				ModelState.AddModelError("FirstName", "First Name is required");
-			}
-
-            if (string.IsNullOrEmpty(contact.LastName))
-            {
-                ModelState.AddModelError("LastName", "Last Name is required");
-            }
-
-            if (contact.FirstName.Length < 2)
-            {
-                ModelState.AddModelError("FirstName", "First Name must be at least 2 letters long");
-            }
-
-            if (contact.LastName.Length < 2)
-            {
-                ModelState.AddModelError("LastName", "Last Name must be at least 2 letters long");
-            }
-
-            if (contact.City != null && contact.City.Length < 2 )
-            {
-                ModelState.AddModelError("City", "E");
-            }
-
-            if (contact.BirthDate < new DateTime(1900, 1, 1) || contact.BirthDate > DateTime.Now)
-            {
-                ModelState.AddModelError("BirthDate", "Date out of range");
-            }
-
             if (ModelState.IsValid)
             {
                 _repository.InsertContact(contact);
