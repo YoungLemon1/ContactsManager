@@ -3,6 +3,7 @@ using HomeAssignment.Repostories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.SqlClient;
+using System.Reflection;
 
 namespace HomeAssignment.Controllers
 {
@@ -16,15 +17,22 @@ namespace HomeAssignment.Controllers
             _repository = repository;
             contact = new Contact();
         }
+        [HttpGet]
         public IActionResult Index(string id)
         {
             var c = _repository.GetContact(id);
-            if (c != null)
+            if (c is null)
             {
-                contact = c;
+                return NotFound();
             }
+            contact = c;
             return View(contact);
         }
+        //[HttpPost]
+        //public IActionResult Index(Contact contact)
+        //{
+        //    return View(contact);
+        //}
 
         // GET: ContactDetails/Edit/5
         public IActionResult SaveEdit(Contact contact)
@@ -64,7 +72,7 @@ namespace HomeAssignment.Controllers
                 _repository.UpdateContact(contact);
             }
             else TempData["ErrorMessage"] = "Submit failed, one or more parameters are incorrect";
-            return RedirectToAction("Index", new { id = contact.Id });
+            return View("../ContactDetails/Index", contact);
         }
     }
 }

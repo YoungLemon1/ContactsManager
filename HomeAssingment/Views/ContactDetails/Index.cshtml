@@ -54,7 +54,7 @@
 	</script>
 
 	<h2>@Model.FirstName @Model.LastName</h2>
-	<div id="error-message">@TempData["ErrorMessage"]</div>
+	<div class="error-message">@TempData["ErrorMessage"]</div>
 	<form asp-action="SaveEdit" class="form-control" id="edit-contact-form">
 		<button id="edit-btn" type="button" class="btn btn-warning" onclick="ToggleEditingMode()">Edit ✏</button>
 		<div>

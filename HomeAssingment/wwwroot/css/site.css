@@ -52,6 +52,31 @@ table#contacts-table {
     background-color: red;
 }
 
+.error-message {
+    color: red;
+}
+
+form > input + span {
+    display: inline-block;
+    font-size: small;
+    color: red;
+    margin-top: 5px;
+    vertical-align: top;
+}
+
+form input {
+    display: block;
+    background-color: initial;
+    border: 2px solid black;
+    border-radius: 2%;
+    padding-left: 10px;
+    vertical-align: middle;
+}
+
+form span {
+    margin: 0;
+    font-size:smaller;
+}
 #edit-contact-form input {
     background-color: initial;
     border: 2px solid black;
@@ -59,11 +84,14 @@ table#contacts-table {
     padding-left: 10px;
 }
 
+#edit-contact-form span {
+    padding-left: 160px;
+}
+
 #edit-contact-form input[readonly] {
     background-color: #e0e0e0;
 }
 #edit-contact-form div {
-    display: flex;
     flex-direction: row;
     justify-content: left;
     align-items: flex-start;
@@ -73,16 +101,6 @@ table#contacts-table {
     text-align:right;
     padding-right: 20px;
     width: 160px;
-}
-
-#error-message {
-    color: red;
-}
-
-span.text-danger {
-    display: block;
-    font-size: small;
-    color: red;
 }
 
 form div {
