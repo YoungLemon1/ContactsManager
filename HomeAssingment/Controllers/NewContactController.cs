@@ -33,7 +33,7 @@ namespace HomeAssignment.Controllers
                 return Redirect("/");
             }
             TempData["ErrorMessage"] = "Submit failed, one or more parameters are incorrect";
-            return RedirectToAction("Index", contact);         
+            return View("Index", contact);
         }
 	}
 }

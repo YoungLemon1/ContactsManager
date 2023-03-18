@@ -1,10 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using HomeAssignment.Repostories;
+using System.ComponentModel.DataAnnotations;
 
 namespace HomeAssignment.Models
 {
     public class Contact
     {
-
         [Key]
         [Required(ErrorMessage = "ID is Required")]
         [RegularExpression("[0-9]{9}", ErrorMessage = "ID should be 9 digits long")]
