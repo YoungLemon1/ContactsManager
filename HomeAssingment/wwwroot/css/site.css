@@ -25,7 +25,7 @@ table#contacts-table {
     max-width:800px;
 }
 
-.contacts-body tr:hover td:not(.checkbox-cell) {
+.contacts-body tr:hover td.clickable {
     background-color: aliceblue;
     cursor: pointer;
 }
@@ -68,7 +68,7 @@ form input {
     display: block;
     background-color: initial;
     border: 2px solid black;
-    border-radius: 2%;
+    border-radius: 5px;
     padding-left: 10px;
     vertical-align: middle;
 }
@@ -77,11 +77,25 @@ form span {
     margin: 0;
     font-size:smaller;
 }
+
+
+.warning-message {
+    color: red;
+    font-size: 8px;
+}
+
 #edit-contact-form input {
     background-color: initial;
     border: 2px solid black;
-    border-radius: 2%;
     padding-left: 10px;
+}
+
+#contact-phone * {
+    color: black;
+}
+
+#contact-phone input, button {
+    height: 100%;
 }
 
 #edit-contact-form span {

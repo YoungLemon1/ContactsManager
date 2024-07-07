@@ -11,6 +11,86 @@
         window.location.href = '@Url.Action("Index", "NewContact")';
     }
 
+    <!-- #editPhone -->
+    var editing = false;
+
+    function ToggleEditPhone(id) {
+        const phoneInput = document.getElementById(id + "phone");
+        const editBtn = document.getElementById(id + "edit-btn");
+        const saveBtn = document.getElementById(id + "save-btn");
+
+        if (editing) {
+            phoneInput.setAttribute("disabled", true);
+            saveBtn.setAttribute("disabled", true);
+            editBtn.style.backgroundColor = "#FFA500";
+            editBtn.textContent = "Edit ✏";
+        } else {
+            phoneInput.removeAttribute("disabled");
+            saveBtn.removeAttribute("disabled");
+            editBtn.style.backgroundColor = "#6D071A";
+            editBtn.textContent = "X";
+        }
+        editing = !editing;
+    }
+
+    async function SavePhone(id) {
+        const phoneInput = document.getElementById(id + "phone");
+        const phone = phoneInput.value;
+        const editBtn = document.getElementById(id + "edit-btn");
+        const saveBtn = document.getElementById(id + "save-btn");
+
+        const existingWarning = document.getElementById(id + "warning");
+        if (existingWarning) {
+            existingWarning.remove();
+            phoneInput.style.borderColor = "inherit";
+        }
+
+        // Validation: Check if phone length is not 10
+        if (phone.length !== 10 || !/^\d{10}$/.test(phone)) {
+            phoneInput.style.borderColor = "red";
+            const warningMessage = document.createElement("div");
+            warningMessage.id = id + "warning";
+            warningMessage.style.color = "red";
+            warningMessage.style.marginTop = "5px";
+            warningMessage.style.fontSize = "8px";
+            warningMessage.textContent = "Phone number must be 10 digits.";
+            phoneInput.insertAdjacentElement("afterend", warningMessage);
+            return;
+        }
+
+        try {
+            const response = await fetch('@Url.Action("SavePhone", "Home")', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id: id, phone: phone })
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('Server responded with an error:', response.status, errorText);
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+
+            const data = await response.json();
+
+            if (data.success) {
+                console.log('Phone number updated successfully.');
+                ToggleEditPhone(id);
+            } else {
+                console.error('Failed to update phone number.');
+            }
+        } catch (error) {
+            console.error('Error parsing JSON:', error);
+            console.log('Response text:', await response.text());
+        }
+    }
+
+    <!-- #endregion -->
+
+
     function ResetAllCheckboxes() {
         $('.contacts-body input[type="checkbox"]').prop('checked', false);
     }
@@ -63,9 +143,9 @@
             alert('Please select at least one entry to delete.');
         }
     }
-    //Route to contact details
+    //Apply Route to contact details to every clickable table cell
     $(document).ready(function () {
-        $('td:not(.checkbox-cell)').click(function () {
+        $('td.clickable').click(function () {
             var id = $(this).parent().attr('id');
             RouteToContactDetails(id)
         })
@@ -117,21 +197,31 @@
             <th>ID</th>
             <th>First Name</th>
             <th>Last Name</th>
+            <th>Phone Number</th>
         </tr>
     </thead>
     <tbody class="contacts-body">
         @{
             foreach (var contact in Model)
             {
-                <tr id="@contact.Id">
-                    <td class="checkbox-cell"><input type="checkbox" /></td>
-                    <td>@contact.Id</td>
-                    <td>@contact.FirstName</td>
-                    <td>@contact.LastName</td>
-                </tr>
+                string contactPhoneId = contact.Id!.ToString() + "phone";
+                string editBtnId = contact.Id!.ToString() + "edit-btn";
+                string saveBtnId = contact.Id!.ToString() + "save-btn";
+                    <tr id="@contact.Id">
+                        <td class="checkbox-cell"><input type="checkbox" /></td>
+                        <td class="clickable">@contact.Id</td>
+                        <td class="clickable">@contact.FirstName</td>
+                        <td class="clickable">@contact.LastName</td>
+                        <td id="contact-phone">
+                            <input id="@contactPhoneId" value="@contact.Phone" disabled />
+                            <button id="@editBtnId" class="btn btn-warning" onclick="ToggleEditPhone(@contact.Id)">Edit ✏</button>
+                            <button id="@saveBtnId" class="btn btn-success" onclick="SavePhone(@contact.Id)" disabled> Save </button>
+                        </td>
+                    </tr>
             }
         }
     </tbody>
+
 </table>
 
 

@@ -1,11 +1,8 @@
 ﻿using HomeAssignment.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using System.Data;
-using System.Configuration;
-using System.Data.SqlClient;
 using System.Diagnostics;
 using HomeAssignment.Repostories;
+using System.Text.Json;
 
 namespace HomeAssignment.Controllers
 {
@@ -38,6 +35,45 @@ namespace HomeAssignment.Controllers
         {
             _repository.DeleteAllContacts();
             RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult SavePhone([FromBody] JsonElement model)
+        {
+            if (!model.TryGetProperty("id", out var idElement) || idElement.ValueKind != JsonValueKind.Number)
+                return BadRequest(new { success = false, message = "Invalid or missing ID" });
+
+            string id = idElement.GetInt32().ToString();
+
+            if (!model.TryGetProperty("phone", out var phoneElement) || phoneElement.ValueKind != JsonValueKind.String)
+                return BadRequest(new { success = false, message = "Invalid or missing phone number" });
+
+            string phone = phoneElement.GetString()!;
+
+            var contact = _repository.GetContact(id.ToString());
+            if (contact == null)
+                return NotFound(new { success = false, message = "Contact not found" });
+
+            contact.Phone = phone;
+
+            var IdChanged = _repository.GetContact(id) == null;
+
+            if (IdChanged)
+            {
+                ModelState.AddModelError("Id", "ID cannot be modified");
+            }
+
+            if (ModelState.IsValid)
+            {
+                _repository.UpdateContact(contact);
+                return Ok(new { success = true });
+            }
+ 
+            else
+            {
+                // Log the exception
+                return StatusCode(500, new { success = false, message = "An error occurred while updating the contact" });
+            }
         }
     }
 }

@@ -10,12 +10,12 @@
 	</div>
 	<div>
 		<label for="first-name">First Name</label>
-		<input id="first-name" type="text" asp-for=FirstName maxlength="15" pattern="[A-Za-z\s\-]{2,}" title="First name should be at least 2 letters long" required />
+		<input id="first-name" type="text" asp-for=FirstName maxlength="15" pattern="[A-Za-z\s\-]{2,}" title="First name should be at least 2 letters long and in English" required />
 		<span asp-validation-for="FirstName" class="text-danger"></span>
 	</div>
 	<div>
 		<label for="last-name">Last Name</label>
-		<input id="last-name" type="text" asp-for=LastName maxlength="15" pattern="[A-Za-z\s\-]{2,}" title="Last name should be at least 2 letters long" required />
+		<input id="last-name" type="text" asp-for=LastName maxlength="15" pattern="[A-Za-z\s\-]{2,}" title="Last name should be at least 2 letters long and in English" required />
 		<span asp-validation-for="LastName" class="text-danger"></span>
 	</div>
 	<div>

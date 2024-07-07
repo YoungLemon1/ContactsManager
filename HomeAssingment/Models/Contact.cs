@@ -8,15 +8,15 @@ namespace HomeAssignment.Models
         [Key]
         [Required(ErrorMessage = "ID is Required")]
         [RegularExpression("[0-9]{9}", ErrorMessage = "ID should be 9 digits long")]
-        public string Id { get; set; }
+        public string ?Id { get; set; }
 
         [Required(ErrorMessage = "First Name is Required")]
         [RegularExpression("[A-Za-z\\s\\-]{2,}")]
-        public string FirstName { get; set; }
+        public string ?FirstName { get; set; }
 
         [Required(ErrorMessage = "Last Name is Required")]
         [RegularExpression("[A-Za-z\\s\\-]{2,}")]
-        public string LastName { get; set; }
+        public string ?LastName { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         [Range(typeof(DateTime), "1/1/1900", "1/1/2023", ErrorMessage = "Date out of range")]

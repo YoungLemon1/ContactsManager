@@ -28,6 +28,8 @@ namespace HomeAssignment.Controllers
         [HttpPost]
         public IActionResult SaveEdit(Contact contact)
         {
+            if (contact.Id == null) return BadRequest();
+
             var IdChanged = _repository.GetContact(contact.Id) == null;
 
             if (IdChanged)
